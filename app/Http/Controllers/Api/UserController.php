@@ -7,9 +7,14 @@ use App\Mail\OtpMail;
 use App\Mail\ResetPasswordEMail;
 use App\Models\PasswordReset;
 use App\Models\User;
+use App\Models\UserServiceRequest;
+use App\Models\WarehouseStorage;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -83,6 +88,16 @@ class UserController extends Controller
     public function generateRandomKey($length = 32)
     {
         return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+    }
+
+    public function getUniqueId(){
+        $uniqueId = $this->generateRandomKey(12);
+        if(UserServiceRequest::where('unique_id',$uniqueId)->count() == 0){
+            return $uniqueId;
+        }
+        else{
+            return $this->getUniqueId();
+        }
     }
 
     public function logout(Request $request)
@@ -212,5 +227,110 @@ class UserController extends Controller
             return array('status' => false, 'message' =>'Please enter valid OTP.');
         }
         return array('status' => true);
+    }
+
+    public function warehouseStorages(Request $request){
+        $rules = array(
+            'description_of_materials' => 'required',
+            'storage_type_id' => 'required',
+            'quantity_of_items' => 'required',
+            'goods_preparation_type_id' => 'required',
+            'no_of_packaged_goods' => 'required',
+            'packaging_specifications' => 'required',
+            'weight_of_goods' => 'required',
+            'storage_start_date' => 'required|date',
+            'storage_end_date' => 'required|date',
+            'any_dangerous' => 'required',
+            'dissolution_plan_place' => 'required',
+            'special_handling_requirements' => 'required',
+            'transport_to_deliver' => 'required',
+            'venues_distribution' => 'required',
+        );
+
+        if($request->get('any_dangerous') == 'Yes'){
+            $rules['dangerous_details'] = 'required';
+        }
+        if($request->get('dissolution_plan_place') == 'Yes'){
+            $rules['dissolution_plan_details'] = 'required';
+        }
+        if($request->get('special_handling_requirements') == 'Yes'){
+            $rules['special_handling_details'] = 'required';
+        }
+        if($request->get('transport_to_deliver') == 'Yes'){
+            $rules['transport_to_deliver_details'] = 'required';
+        }
+        if($request->get('transport_to_deliver') == 'No'){
+            $rules['date_of_collection'] = 'required|date';
+            $rules['location_of_collection'] = 'required';
+            $rules['collection_contact_person'] = 'required|integer';
+        }
+        if($request->get('venues_distribution') == 'Yes'){
+            $rules['venues_distribution_date'] = 'required|date';
+            $rules['venues_distribution_place'] = 'required';
+            $rules['venues_distribution_contact'] = 'required|integer';
+        }
+
+        $validator = Validator::make(
+            $request->all(),
+            $rules
+        );
+        if ($validator->fails()) {
+            return array('status' => false, 'message' => $validator, 'error_code' => '100');
+        }
+
+        DB::beginTransaction();
+        try{
+            $uniqueId =  $this->getUniqueId();
+            $userServiceRequest = new UserServiceRequest();
+            $userServiceRequest->user_id = $request->attributes->get('user_id');
+            $userServiceRequest->unique_id = $uniqueId;
+            $userServiceRequest->service_id = $request->get('service');
+            $userServiceRequest->name = $request->get('name');
+            $userServiceRequest->email = $request->get('email');
+            $userServiceRequest->mobile = $request->get('mobile');
+            $userServiceRequest->project_functional_area = $request->get('project_functional_area');
+            $userServiceRequest->job_title = $request->get('job_title');
+            $userServiceRequest->save();
+
+            $warehouseStorage = new WarehouseStorage();
+            $warehouseStorage->user_id = $request->attributes->get('user_id');
+            $warehouseStorage->user_service_request_id = $userServiceRequest->id;
+            $warehouseStorage->description_of_materials = $request->get('description_of_materials');
+            $warehouseStorage->storage_type_id = $request->get('storage_type_id');
+            $warehouseStorage->quantity_of_items = $request->get('quantity_of_items');
+            $warehouseStorage->goods_preparation_type_id = $request->get('goods_preparation_type_id');
+            $warehouseStorage->no_of_packaged_goods = $request->get('no_of_packaged_goods');
+            $warehouseStorage->packaging_specifications = $request->get('packaging_specifications');
+            $warehouseStorage->weight_of_goods = $request->get('weight_of_goods');
+            $warehouseStorage->storage_start_date = $request->get('storage_start_date');
+            $warehouseStorage->storage_end_date = $request->get('storage_end_date');
+            $warehouseStorage->any_dangerous = $request->get('any_dangerous');
+            $warehouseStorage->dangerous_details = $request->get('dangerous_details');
+            $warehouseStorage->special_handling_requirements = $request->get('special_handling_requirements');
+            $warehouseStorage->special_handling_details = $request->get('special_handling_details');
+            $warehouseStorage->transport_to_deliver = $request->get('transport_to_deliver');
+            $warehouseStorage->transport_to_deliver_details = $request->get('transport_to_deliver_details');
+            $warehouseStorage->date_of_collection = $request->get('date_of_collection');
+            $warehouseStorage->location_of_collection = $request->get('location_of_collection');
+            $warehouseStorage->collection_contact_person = $request->get('collection_contact_person');
+            $warehouseStorage->venues_distribution = $request->get('venues_distribution');
+            $warehouseStorage->venues_distribution_date = $request->get('venues_distribution_date');
+            $warehouseStorage->venues_distribution_place = $request->get('venues_distribution_place');
+            $warehouseStorage->venues_distribution_contact = $request->get('venues_distribution_contact');
+            $warehouseStorage->save();
+
+            DB::commit();
+            return array('status'=>true);
+        }
+        catch(Exception $e){
+            Log::info("error:".json_encode($e->getMessage()));
+            DB::rollBack();
+            return array('status'=>false,'message'=> 'something went wrong!!');
+        }
+    }
+
+    public function getServiceRequest(Request $request)
+    {
+        return UserServiceRequest::where('user_id',$request->attributes->get('user_id'))->get();
     }
 }
