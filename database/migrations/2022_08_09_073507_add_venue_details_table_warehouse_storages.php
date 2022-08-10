@@ -28,7 +28,9 @@ class AddVenueDetailsTableWarehouseStorages extends Migration
     public function down()
     {
         Schema::table('warehouse_storages', function (Blueprint $table) {
-            //
+            $table->dropColumn('venues_distribution_date');
+            $table->dropColumn('venues_distribution_place');
+            $table->dropColumn('venues_distribution_contact');
         });
     }
 }

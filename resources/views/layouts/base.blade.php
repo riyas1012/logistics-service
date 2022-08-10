@@ -22,8 +22,6 @@
 </head>
 <body class="home-page home-01 ">
 
-	@include('layouts.header')
-
 	@yield('content')
 
 	<script src="{{asset('assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4')}}"></script>
