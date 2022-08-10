@@ -57,6 +57,7 @@ class HomeController extends Controller
             return back()->withErrors($logoutStatus['message']);
         }
         session()->forget('token');
+        session()->forget('otp_verified');
         return redirect()->route('index');
     }
 
@@ -130,18 +131,5 @@ class HomeController extends Controller
         }
         session()->put('otp_verified', 1);
         return redirect()->route('request.form');
-    }
-
-    public function requestForm(Request $request)
-    {
-        if (env('OTP_VERIFY')) {
-            if (!session()->has('otp_verified') && session()->get('otp_verified') != 1) {
-                return view('pages.otp');
-            }
-        }
-        return view('pages.request_form', [
-            'storage_types' => $this->getStorageTypes(),
-            'goods_preparation_types' => $this->getGoodsPreparationTypes(),
-        ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,9 @@ Route::middleware(['auth_user'])->group(function () {
     Route::get('otp',[HomeController::class,'getOtpPage'])->name('otp');
     Route::get('otp-resend',[HomeController::class,'otpResend'])->name('otp.resend');
     Route::post('otp-verification',[HomeController::class,'otpVerification'])->name('otp.verification');
-    Route::get('request-form', [HomeController::class,'requestForm'])->name('request.form');
+    Route::get('service-request', [UserController::class,'getServiceRequest'])->name('service.request');
+    Route::get('service-request/{service_request_id}', [UserController::class,'getServiceRequestDetails'])->name('service.request.details');
+    Route::get('request-form', [UserController::class,'requestForm'])->name('request.form');
+    Route::post('request-form-create', [UserController::class,'requestFormCreate'])->name('request.form.create');
     Route::get('logout',[HomeController::class,'logout'])->name('logout');
 });

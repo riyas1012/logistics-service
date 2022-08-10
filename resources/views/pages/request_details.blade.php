@@ -2,145 +2,112 @@
 
 @section('content')
     @include('layouts.header', ['header_name' => 'Logistics Service Request Form'])
-    @if (session()->has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ session()->get('success') }}
-        </div>
-    @endif
-    <form action="{{ route('request.form.create') }}" class="form-horizontal" method="POST">
-        @csrf
-        <div class="container" style="padding:30px 0px;">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    Requestor Information
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="{{ route('service.request') }}" class="btn btn-success pull-right">
-                                        All Request
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="{{ route('logout') }}" class="btn btn-success pull-right">
-                                        Logout
-                                    </a>
+    <div class="container" style="padding:30px 0px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Requestor Information
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{{ route('service.request') }}" class="btn btn-success pull-right">
+                                    All Request
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{{ route('logout') }}" class="btn btn-success pull-right">
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="col-md-4 control-label">
+                                        Name :
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="name" id="name" placeholder="Name"
+                                            class="form-control input-md" disabled
+                                            value="{{ $user_service_request->name }}" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name" class="col-md-4 control-label">
-                                            Name :
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="name" id="name" placeholder="Name"
-                                                class="form-control input-md" value="{{ old('name') }}" />
-                                            @error('name')
-                                                <p class="text-danger">
-                                                    {{ $message }}
-                                                </p>
-                                            @enderror
-                                        </div>
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email" class="col-md-4 control-label">
+                                        Email :
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="email" disabled value="{{ $user_service_request->email }}"
+                                            name="email" id="email" placeholder="Email"
+                                            class="form-control input-md" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email" class="col-md-4 control-label">
-                                            Email :
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="email" value="{{ old('email') }}" name="email" id="email"
-                                                placeholder="Email" class="form-control input-md" />
-                                            @error('email')
-                                                <p class="text-danger">
-                                                    {{ $message }}
-                                                </p>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="project_functional_area" class="col-md-4 control-label">
-                                            Project/Functional Area :
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="project_functional_area"
-                                                id="project_functional_area" placeholder="Project/Functional Area"
-                                                class="form-control input-md"
-                                                value="{{ old('project_functional_area') }}" />
-                                            @error('project_functional_area')
-                                                <p class="text-danger">
-                                                    {{ $message }}
-                                                </p>
-                                            @enderror
-                                        </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="project_functional_area" class="col-md-5 control-label">
+                                        Project/Functional Area :
+                                    </label>
+                                    <div class="col-md-7">
+                                        <input type="text" name="project_functional_area" id="project_functional_area"
+                                             class="form-control input-md"
+                                            value="{{ $user_service_request->project_functional_area }}" disabled />
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="mobile" class="col-md-4 control-label">
-                                            Mobile :
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="mobile" id="mobile" placeholder="Mobile"
-                                                class="form-control input-md" value="{{ old('mobile') }}" />
-                                            @error('mobile')
-                                                <p class="text-danger">
-                                                    {{ $message }}
-                                                </p>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="job_title" class="col-md-4 control-label">
-                                            Job Title :
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="job_title" value="{{ old('job_title') }}"
-                                                id="job_title" placeholder="Job Title" class="form-control input-md" />
-                                            @error('job_title')
-                                                <p class="text-danger">
-                                                    {{ $message }}
-                                                </p>
-                                            @enderror
-                                        </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="mobile" class="col-md-4 control-label">
+                                        Mobile :
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="mobile" id="mobile" placeholder="Mobile"
+                                            class="form-control input-md" value="{{ $user_service_request->mobile }}"
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label for="service" class="col-md-3 control-label">
-                                            Service :
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="radio" name="service" value="1"
-                                                @if (old('service') == 1) checked @endif /> <span> Warehouse Storage
-                                                Space </span> <br>
-                                            <input type="radio" name="service" value="2"
-                                                @if (old('service') == 2) checked @endif /> <span> Transportation of
-                                                Goods to Venues</span> <br>
-                                            <input type="radio" name="service" value="3"
-                                                @if (old('service') == 3) checked @endif /> <span> On-Venue
-                                                Assistance* (Crew, MHE, Other Venue Support)</span> <br>
-                                            @error('service')
-                                                <p class="text-danger">
-                                                    {{ $message }}
-                                                </p>
-                                            @enderror
-                                        </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="job_title" class="col-md-4 control-label">
+                                        Job Title :
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="job_title"
+                                            value="{{ $user_service_request->job_title }}" disabled id="job_title"
+                                            placeholder="Job Title" class="form-control input-md" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="service" class="col-md-3 control-label">
+                                        Service :
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="radio" name="service" value="1"
+                                            @if ($user_service_request->service_id == 1) checked @endif disabled /> <span>
+                                            Warehouse Storage
+                                            Space </span> <br>
+                                        <input type="radio" name="service" value="2"
+                                            @if ($user_service_request->service_id == 2) checked @endif disabled /> <span>
+                                            Transportation of
+                                            Goods to Venues</span> <br>
+                                        <input type="radio" name="service" value="3"
+                                            @if ($user_service_request->service_id == 3) checked @endif disabled /> <span> On-Venue
+                                            Assistance* (Crew, MHE, Other Venue Support)</span> <br>
                                     </div>
                                 </div>
                             </div>
@@ -149,6 +116,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    @if ($user_service_request->service_id == 1)
         <div class="container" id="warehouse_storage_space" style="padding:5px 0px;display:none;">
             <div class="row">
                 <div class="col-md-12">
@@ -167,12 +136,7 @@
                                             id="description_of_materials"
                                             placeholder="E.g.: Brown Foldable Plastic Tables 1.5x.3m"
                                             class="form-control input-width"
-                                            value="{{ old('description_of_materials') }}" />
-                                        @error('description_of_material')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->description_of_materials }}" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -183,18 +147,12 @@
                                             Type of Storage Required :
                                         </label>
                                         <select class="form-control input-width" name="storage_type_id"
-                                            id="storage_type_id">
-                                            <option value="">Select Storage Type</option>
+                                            id="storage_type_id" disabled>
                                             @foreach ($storage_types as $storageType)
-                                                <option @if (old('storage_type_id') == $storageType->id) selected @endif
+                                                <option @if ($user_service_request->warehouse_storage->storage_type_id == $storageType->id) selected @endif
                                                     value="{{ $storageType->id }}">{{ $storageType->name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('storage_type_id')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -204,12 +162,7 @@
                                         </label>
                                         <input type="number" name="quantity_of_items" id="quantity_of_items"
                                             placeholder="e.g.: 200" class="form-control input-width"
-                                            value="{{ old('quantity_of_items') }}" />
-                                        @error('quantity_of_items')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->quantity_of_items }}" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -220,19 +173,13 @@
                                             How will the goods be prepared? :
                                         </label>
                                         <select class="form-control input-width" name="goods_preparation_type_id"
-                                            id="goods_preparation_type_id">
-                                            <option value="">Select Goods Preparation Type</option>
+                                            id="goods_preparation_type_id" disabled>
                                             @foreach ($goods_preparation_types as $goodsPreparationTypes)
-                                                <option @if (old('goods_preparation_type_id') == $goodsPreparationTypes->id) selected @endif
+                                                <option @if ($user_service_request->warehouse_storage->goods_preparation_type_id == $goodsPreparationTypes->id) selected @endif
                                                     value="{{ $goodsPreparationTypes->id }}">
                                                     {{ $goodsPreparationTypes->name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('goods_preparation_type_id')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -242,12 +189,7 @@
                                         </label>
                                         <input type="number" name="no_of_packaged_goods" id="no_of_packaged_goods"
                                             placeholder="e.g.: 200" class="form-control input-width"
-                                            value="{{ old('no_of_packaged_goods') }}" />
-                                        @error('no_of_packaged_goods')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->no_of_packaged_goods }}" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -261,12 +203,7 @@
                                             id="packaging_specifications"
                                             placeholder="Please specify if the dimensions are per unit/box/pallet"
                                             class="form-control input-width"
-                                            value="{{ old('packaging_specifications') }}" />
-                                        @error('packaging_specifications')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->packaging_specifications }}"  disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -278,12 +215,7 @@
                                         </label>
                                         <input type="text" name="weight_of_goods" id="weight_of_goods"
                                             placeholder="Please specify if the weight is per unit/box/pallet or total"
-                                            class="form-control input-width" value="{{ old('weight_of_goods') }}" />
-                                        @error('weight_of_goods')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            class="form-control input-width" value="{{ $user_service_request->warehouse_storage->weight_of_goods }}" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -295,12 +227,7 @@
                                         </label>
                                         <input type="text" name="storage_start_date" id="storage_start_date"
                                             placeholder="YYYY/MM/DD" class="form-control input-width"
-                                            value="{{ old('storage_start_date') }}" />
-                                        @error('storage_start_date')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->storage_start_date }}" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -310,12 +237,8 @@
                                         </label>
                                         <input type="text" name="storage_end_date" id="storage_end_date"
                                             placeholder="YYYY/MM/DD" class="form-control input-width"
-                                            value="{{ old('storage_end_date') }}" />
-                                        @error('storage_end_date')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->storage_end_date }}" disabled />
+
                                     </div>
                                 </div>
                             </div>
@@ -325,18 +248,12 @@
                                         <label for="any_dangerous" class="control-label">
                                             Are there any Dangerous or Hazardous Goods? :
                                         </label>
-                                        <select class="form-control input-width" name="any_dangerous" id="any_dangerous">
-                                            <option value="">-- Select --</option>
-                                            <option @if (old('any_dangerous') == 'Yes') selected @endif value="Yes">Yes
-                                            </option>
-                                            <option @if (old('any_dangerous') == 'No') selected @endif value="No">No
+                                        <select class="form-control input-width" name="any_dangerous" id="any_dangerous" disabled>
+                                            <option @if ($user_service_request->warehouse_storage->any_dangerous == 'Yes') selected @endif value="Yes">
+                                                Yes</option>
+                                            <option @if ($user_service_request->warehouse_storage->any_dangerous == 'No') selected @endif value="No">No
                                             </option>
                                         </select>
-                                        @error('goods_preparation_type_id')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6" id="dangerous_details_div" style="display: none;">
@@ -346,12 +263,8 @@
                                         </label>
                                         <input type="text" name="dangerous_details" id="dangerous_details"
                                             placeholder="If YES, Please specify" class="form-control input-width"
-                                            value="{{ old('dangerous_details') }}" />
-                                        @error('dangerous_details')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->dangerous_details }}" disabled/>
+
                                     </div>
                                 </div>
                             </div>
@@ -362,18 +275,12 @@
                                             Is there a dissolution plan in place? :
                                         </label>
                                         <select class="form-control input-width" name="dissolution_plan_place"
-                                            id="dissolution_plan_place">
-                                            <option value="">-- Select --</option>
-                                            <option @if (old('dissolution_plan_place') == 'Yes') selected @endif value="Yes">Yes
-                                            </option>
-                                            <option @if (old('dissolution_plan_place') == 'No') selected @endif value="No">No
+                                            id="dissolution_plan_place" disabled>
+                                            <option @if ($user_service_request->warehouse_storage->dissolution_plan_place == 'Yes') selected @endif value="Yes">
+                                                Yes</option>
+                                            <option @if ($user_service_request->warehouse_storage->dissolution_plan_place == 'No') selected @endif value="No">No
                                             </option>
                                         </select>
-                                        @error('dissolution_plan_place')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6" id="dissolution_plan_details_div" style="display: none;">
@@ -384,12 +291,8 @@
                                         <input type="text" name="dissolution_plan_details"
                                             id="dissolution_plan_details" placeholder="If YES, Please specify"
                                             class="form-control input-width"
-                                            value="{{ old('dissolution_plan_details') }}" />
-                                        @error('dissolution_plan_details')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{$user_service_request->warehouse_storage->dissolution_plan_details }}"  disabled/>
+
                                     </div>
                                 </div>
                             </div>
@@ -400,18 +303,12 @@
                                             Any special handling requirements from the supplier? :
                                         </label>
                                         <select class="form-control input-width" name="special_handling_requirements"
-                                            id="special_handling_requirements">
-                                            <option value="">-- Select --</option>
-                                            <option @if (old('special_handling_requirements') == 'Yes') selected @endif value="Yes">Yes
-                                            </option>
-                                            <option @if (old('special_handling_requirements') == 'No') selected @endif value="No">No
-                                            </option>
+                                            id="special_handling_requirements" disabled>
+                                            <option @if ($user_service_request->warehouse_storage->special_handling_requirements == 'Yes') selected @endif value="Yes">
+                                                Yes</option>
+                                            <option @if ($user_service_request->warehouse_storage->special_handling_requirements == 'No') selected @endif value="No">
+                                                No</option>
                                         </select>
-                                        @error('special_handling_requirements')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6" id="special_handling_details_div" style="display: none;">
@@ -422,12 +319,7 @@
                                         <input type="text" name="special_handling_details"
                                             id="special_handling_details" placeholder="If YES, Please specify"
                                             class="form-control input-width"
-                                            value="{{ old('dissolution_plan_details') }}" />
-                                        @error('special_handling_details')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->special_handling_details }}" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -438,18 +330,13 @@
                                             Will you provide the transport to deliver this to the Warehouse? :
                                         </label>
                                         <select class="form-control input-width" name="transport_to_deliver"
-                                            id="transport_to_deliver">
+                                            id="transport_to_deliver" disabled>
                                             <option value="">-- Select --</option>
-                                            <option @if (old('transport_to_deliver') == 'Yes') selected @endif value="Yes">Yes
-                                            </option>
-                                            <option @if (old('transport_to_deliver') == 'No') selected @endif value="No">No
-                                            </option>
+                                            <option @if ($user_service_request->warehouse_storage->transport_to_deliver == 'Yes') selected @endif value="Yes">
+                                                Yes</option>
+                                            <option @if ($user_service_request->warehouse_storage->transport_to_deliver == 'No') selected @endif value="No">
+                                                No</option>
                                         </select>
-                                        @error('transport_to_deliver')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6" id="transport_to_deliver_details_div" style="display: none;">
@@ -457,15 +344,11 @@
                                         <label for="transport_to_deliver_details" class="control-label">
                                             If YES, Please specify :
                                         </label>
-                                        <input type="text" name="transport_to_deliver_details"
+                                        <input disabled type="text" name="transport_to_deliver_details"
                                             id="transport_to_deliver_details" placeholder="If YES, Please specify"
                                             class="form-control input-width"
-                                            value="{{ old('transport_to_deliver_details') }}" />
-                                        @error('transport_to_deliver_details')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->transport_to_deliver_details }}" />
+
                                     </div>
                                 </div>
                             </div>
@@ -477,12 +360,7 @@
                                         </label>
                                         <input type="text" name="date_of_collection" id="date_of_collection"
                                             placeholder="YYYY/MM/DD" class="form-control collection-input-width"
-                                            value="{{ old('date_of_collection') }}" />
-                                        @error('date_of_collection')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->date_of_collection }}" disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -493,12 +371,7 @@
                                         <input type="text" name="location_of_collection" id="location_of_collection"
                                             placeholder="Central Location of collection"
                                             class="form-control collection-input-width"
-                                            value="{{ old('location_of_collection') }}" />
-                                        @error('location_of_collection')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->location_of_collection }}" disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -509,12 +382,7 @@
                                         <input type="text" name="collection_contact_person"
                                             id="collection_contact_person" placeholder="Central Location of collection"
                                             class="form-control collection-input-width"
-                                            value="{{ old('collection_contact_person') }}" />
-                                        @error('collection_contact_person')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->collection_contact_person }}" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -522,22 +390,17 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="venues_distribution" class="control-label">
-                                            At the end of the requested storage period, do you require Logistics to provide
+                                            At the end of the requested storage period, do you require Logistics to
+                                            provide
                                             the distribution to venues for the items? :
                                         </label>
                                         <select class="form-control input-width" name="venues_distribution"
-                                            id="venues_distribution">
-                                            <option value="">-- Select --</option>
-                                            <option @if (old('venues_distribution') == 'Yes') selected @endif value="Yes">Yes
-                                            </option>
-                                            <option @if (old('venues_distribution') == 'No') selected @endif value="No">No
-                                            </option>
+                                            id="venues_distribution" disabled>
+                                            <option @if ($user_service_request->warehouse_storage->venues_distribution == 'Yes') selected @endif value="Yes">
+                                                Yes</option>
+                                            <option @if ($user_service_request->warehouse_storage->venues_distribution == 'No') selected @endif value="No">
+                                                No</option>
                                         </select>
-                                        @error('venues_distribution')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -550,12 +413,8 @@
                                         <input type="text" name="venues_distribution_date"
                                             id="venues_distribution_date" placeholder="YYYY/MM/DD"
                                             class="form-control collection-input-width"
-                                            value="{{ old('venues_distribution_date') }}" />
-                                        @error('venues_distribution_date')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->venues_distribution_date }}" disabled />
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -566,12 +425,7 @@
                                         <input type="text" name="venues_distribution_place"
                                             id="venues_distribution_place" placeholder="Central Location of collection"
                                             class="form-control collection-input-width"
-                                            value="{{ old('venues_distribution_place') }}" />
-                                        @error('venues_distribution_place')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->venues_distribution_place }}" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -582,12 +436,7 @@
                                         <input type="text" name="venues_distribution_contact"
                                             id="venues_distribution_contact" placeholder="Central Location of collection"
                                             class="form-control collection-input-width"
-                                            value="{{ old('venues_distribution_contact') }}" />
-                                        @error('venues_distribution_contact')
-                                            <p class="text-danger">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                            value="{{ $user_service_request->warehouse_storage->venues_distribution_contact }}" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -596,6 +445,7 @@
                 </div>
             </div>
         </div>
+    @elseif ($user_service_request->service_id == 2)
         <div class="container" id="transportation_goods_to_venues" style="padding:5px 0px;display:none;">
             <div class="row">
                 <div class="col-md-12">
@@ -610,6 +460,7 @@
                 </div>
             </div>
         </div>
+    @elseif ($user_service_request->service_id == 3)
         <div class="container" id="on_venue_assistance" style="padding:5px 0px;display:none;">
             <div class="row">
                 <div class="col-md-12">
@@ -624,18 +475,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="submit" class="col-md-6 control-label"></label>
-            <div class="col-md-4">
-                <button class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
+    @endif
     @push('scripts')
         <script>
             $(document).ready(function() {
-                var service = {!! old('service') !!}
+                var service = {!! $user_service_request->service_id !!}
                 if (service == '1') {
                     $("#warehouse_storage_space").show();
                     $("#transportation_goods_to_venues").hide();
@@ -655,28 +499,28 @@
                     $("#on_venue_assistance").hide();
                 }
 
-                var any_dangerous = "{!! old('any_dangerous') !!}"
+                var any_dangerous = "{!! $user_service_request->warehouse_storage->any_dangerous !!}"
                 if (any_dangerous == 'Yes') {
                     $("#dangerous_details_div").show();
                 } else {
                     $("#dangerous_details_div").hide();
                 }
 
-                var dissolution_plan_place = "{!! old('dissolution_plan_place') !!}"
+                var dissolution_plan_place = "{!! $user_service_request->warehouse_storage->dissolution_plan_place !!}"
                 if (dissolution_plan_place == 'Yes') {
                     $("#dissolution_plan_details_div").show();
                 } else {
                     $("#dissolution_plan_details_div").hide();
                 }
 
-                var special_handling_requirements = "{!! old('special_handling_requirements') !!}"
+                var special_handling_requirements = "{!! $user_service_request->warehouse_storage->special_handling_requirements !!}"
                 if (special_handling_requirements == 'Yes') {
                     $("#special_handling_details_div").show();
                 } else {
                     $("#special_handling_details_div").hide();
                 }
 
-                var transport_to_deliver = "{!! old('transport_to_deliver') !!}"
+                var transport_to_deliver = "{!! $user_service_request->warehouse_storage->transport_to_deliver !!}"
                 if (transport_to_deliver == 'Yes') {
                     $("#transport_to_deliver_details_div").show();
                     $("#collection_details_div").hide();
@@ -688,7 +532,7 @@
                     $("#collection_details_div").hide();
                 }
 
-                var venues_distribution = "{!! old('venues_distribution') !!}"
+                var venues_distribution = "{!! $user_service_request->warehouse_storage->venues_distribution !!}"
                 if (venues_distribution == 'Yes') {
                     $("#venue_details_div").show();
                 } else {
