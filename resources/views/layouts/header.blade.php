@@ -10,7 +10,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="application-heading">
-                        Logistics Service Request Form
+                        {{-- Logistics Service Request Form --}}
+                        {{ $header_name }}
                     </div>
                 </div>
             </div>
