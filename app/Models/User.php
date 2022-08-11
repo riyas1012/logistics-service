@@ -45,8 +45,4 @@ class User extends Authenticatable
     public function user_service_request(){
         return $this->hasMany(UserServiceRequest::class);
     }
-
-    public function warehouse_storage(){
-        return $this->hasMany(WarehouseStorage::class);
-    }
 }

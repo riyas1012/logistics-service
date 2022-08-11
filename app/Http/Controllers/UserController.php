@@ -52,6 +52,11 @@ class UserController extends Controller
             }
             return redirect()->route('request.form')->with('success','Successfully Added');
         } else if ($request->get('service') == '2') {
+            $transportGoodsStatus = $apiUserController->transportationOfGoods($request);
+            if (!$transportGoodsStatus['status']) {
+                return back()->withErrors($transportGoodsStatus['message'])->withInput();
+            }
+            return redirect()->route('request.form')->with('success','Successfully Added');
 
         } else if ($request->get('service') == '3') {
 
@@ -67,10 +72,13 @@ class UserController extends Controller
     }
 
     public function getServiceRequestDetails(Request $request,$serviceRequestId){
+        $userServiceRequests = UserServiceRequest::where('unique_id',$serviceRequestId)->first();
+        Log::info("userServiceRequests:".json_encode($userServiceRequests));
         return view('pages.request_details',[
-            'user_service_request' => UserServiceRequest::where('unique_id',$serviceRequestId)->first(),
+            'user_service_request' => $userServiceRequests,
             'storage_types' => $this->getStorageTypes(),
             'goods_preparation_types' => $this->getGoodsPreparationTypes(),
+            'service_id' => $userServiceRequests->service_id
         ]);
     }
 }

@@ -14,4 +14,8 @@ class UserServiceRequest extends Model
     public function warehouse_storage(){
        return $this->hasOne(WarehouseStorage::class);
     }
+
+    public function transportation_of_goods(){
+        return $this->hasOne(TransportationOfGoods::class);
+    }
 }

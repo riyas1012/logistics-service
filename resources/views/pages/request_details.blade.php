@@ -31,9 +31,8 @@
                                         Name :
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="text" name="name" id="name" placeholder="Name"
-                                            class="form-control input-md" disabled
-                                            value="{{ $user_service_request->name }}" />
+                                        <input type="text" name="name" id="name" class="form-control input-md"
+                                            disabled value="{{ $user_service_request->name }}" />
                                     </div>
                                 </div>
                             </div>
@@ -46,8 +45,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="email" disabled value="{{ $user_service_request->email }}"
-                                            name="email" id="email" placeholder="Email"
-                                            class="form-control input-md" />
+                                            name="email" id="email" class="form-control input-md" />
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +56,7 @@
                                     </label>
                                     <div class="col-md-7">
                                         <input type="text" name="project_functional_area" id="project_functional_area"
-                                             class="form-control input-md"
+                                            class="form-control input-md"
                                             value="{{ $user_service_request->project_functional_area }}" disabled />
                                     </div>
                                 </div>
@@ -71,9 +69,8 @@
                                         Mobile :
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="text" name="mobile" id="mobile" placeholder="Mobile"
-                                            class="form-control input-md" value="{{ $user_service_request->mobile }}"
-                                            disabled />
+                                        <input type="text" name="mobile" id="mobile" class="form-control input-md"
+                                            value="{{ $user_service_request->mobile }}" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +82,7 @@
                                     <div class="col-md-8">
                                         <input type="text" name="job_title"
                                             value="{{ $user_service_request->job_title }}" disabled id="job_title"
-                                            placeholder="Job Title" class="form-control input-md" />
+                                            class="form-control input-md" />
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +115,7 @@
         </div>
     </div>
     @if ($user_service_request->service_id == 1)
-        <div class="container" id="warehouse_storage_space" style="padding:5px 0px;display:none;">
+        <div class="container" id="warehouse_storage_space" style="padding:5px 0px;">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -133,10 +130,9 @@
                                             Description of Materials :
                                         </label>
                                         <input type="text" name="description_of_materials"
-                                            id="description_of_materials"
-                                            placeholder="E.g.: Brown Foldable Plastic Tables 1.5x.3m"
-                                            class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->description_of_materials }}" disabled />
+                                            id="description_of_materials" class="form-control input-width"
+                                            value="{{ $user_service_request->warehouse_storage->description_of_materials }}"
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -161,8 +157,9 @@
                                             Quantity of items :
                                         </label>
                                         <input type="number" name="quantity_of_items" id="quantity_of_items"
-                                            placeholder="e.g.: 200" class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->quantity_of_items }}" disabled />
+                                            class="form-control input-width"
+                                            value="{{ $user_service_request->warehouse_storage->quantity_of_items }}"
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -188,8 +185,9 @@
                                             Number of packaged goods :
                                         </label>
                                         <input type="number" name="no_of_packaged_goods" id="no_of_packaged_goods"
-                                            placeholder="e.g.: 200" class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->no_of_packaged_goods }}" disabled />
+                                            class="form-control input-width"
+                                            value="{{ $user_service_request->warehouse_storage->no_of_packaged_goods }}"
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -200,10 +198,9 @@
                                             Packaging specifications :
                                         </label>
                                         <input type="text" name="packaging_specifications"
-                                            id="packaging_specifications"
-                                            placeholder="Please specify if the dimensions are per unit/box/pallet"
-                                            class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->packaging_specifications }}"  disabled/>
+                                            id="packaging_specifications" class="form-control input-width"
+                                            value="{{ $user_service_request->warehouse_storage->packaging_specifications }}"
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -214,8 +211,9 @@
                                             Weight of goods :
                                         </label>
                                         <input type="text" name="weight_of_goods" id="weight_of_goods"
-                                            placeholder="Please specify if the weight is per unit/box/pallet or total"
-                                            class="form-control input-width" value="{{ $user_service_request->warehouse_storage->weight_of_goods }}" disabled/>
+                                            class="form-control input-width"
+                                            value="{{ $user_service_request->warehouse_storage->weight_of_goods }}"
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -226,8 +224,9 @@
                                             Storage Start Date :
                                         </label>
                                         <input type="text" name="storage_start_date" id="storage_start_date"
-                                            placeholder="YYYY/MM/DD" class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->storage_start_date }}" disabled/>
+                                            class="form-control input-width"
+                                            value="{{ $user_service_request->warehouse_storage->storage_start_date }}"
+                                            disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -236,8 +235,9 @@
                                             Storage End Date :
                                         </label>
                                         <input type="text" name="storage_end_date" id="storage_end_date"
-                                            placeholder="YYYY/MM/DD" class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->storage_end_date }}" disabled />
+                                            class="form-control input-width"
+                                            value="{{ $user_service_request->warehouse_storage->storage_end_date }}"
+                                            disabled />
 
                                     </div>
                                 </div>
@@ -248,7 +248,8 @@
                                         <label for="any_dangerous" class="control-label">
                                             Are there any Dangerous or Hazardous Goods? :
                                         </label>
-                                        <select class="form-control input-width" name="any_dangerous" id="any_dangerous" disabled>
+                                        <select class="form-control input-width" name="any_dangerous" id="any_dangerous"
+                                            disabled>
                                             <option @if ($user_service_request->warehouse_storage->any_dangerous == 'Yes') selected @endif value="Yes">
                                                 Yes</option>
                                             <option @if ($user_service_request->warehouse_storage->any_dangerous == 'No') selected @endif value="No">No
@@ -256,17 +257,20 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="dangerous_details_div" style="display: none;">
-                                    <div class="form-group">
-                                        <label for="dangerous_details" class="control-label">
-                                            If YES, Please specify :
-                                        </label>
-                                        <input type="text" name="dangerous_details" id="dangerous_details"
-                                            placeholder="If YES, Please specify" class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->dangerous_details }}" disabled/>
+                                @if ($user_service_request->warehouse_storage->any_dangerous == 'Yes')
+                                    <div class="col-md-6" id="dangerous_details_div">
+                                        <div class="form-group">
+                                            <label for="dangerous_details" class="control-label">
+                                                If YES, Please specify :
+                                            </label>
+                                            <input type="text" name="dangerous_details" id="dangerous_details"
+                                                class="form-control input-width"
+                                                value="{{ $user_service_request->warehouse_storage->dangerous_details }}"
+                                                disabled />
 
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="row m-left-20">
                                 <div class="col-md-6">
@@ -283,18 +287,20 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="dissolution_plan_details_div" style="display: none;">
-                                    <div class="form-group">
-                                        <label for="dissolution_plan_details" class="control-label">
-                                            If YES, Please specify :
-                                        </label>
-                                        <input type="text" name="dissolution_plan_details"
-                                            id="dissolution_plan_details" placeholder="If YES, Please specify"
-                                            class="form-control input-width"
-                                            value="{{$user_service_request->warehouse_storage->dissolution_plan_details }}"  disabled/>
+                                @if ($user_service_request->warehouse_storage->dissolution_plan_place == 'Yes')
+                                    <div class="col-md-6" id="dissolution_plan_details_div">
+                                        <div class="form-group">
+                                            <label for="dissolution_plan_details" class="control-label">
+                                                If YES, Please specify :
+                                            </label>
+                                            <input type="text" name="dissolution_plan_details"
+                                                id="dissolution_plan_details" class="form-control input-width"
+                                                value="{{ $user_service_request->warehouse_storage->dissolution_plan_details }}"
+                                                disabled />
 
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="row m-left-20">
                                 <div class="col-md-6">
@@ -311,17 +317,19 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="special_handling_details_div" style="display: none;">
-                                    <div class="form-group">
-                                        <label for="special_handling_details" class="control-label">
-                                            If YES, Please specify :
-                                        </label>
-                                        <input type="text" name="special_handling_details"
-                                            id="special_handling_details" placeholder="If YES, Please specify"
-                                            class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->special_handling_details }}" disabled />
+                                @if ($user_service_request->warehouse_storage->special_handling_requirements == 'Yes')
+                                    <div class="col-md-6" id="special_handling_details_div">
+                                        <div class="form-group">
+                                            <label for="special_handling_details" class="control-label">
+                                                If YES, Please specify :
+                                            </label>
+                                            <input type="text" name="special_handling_details"
+                                                id="special_handling_details" class="form-control input-width"
+                                                value="{{ $user_service_request->warehouse_storage->special_handling_details }}"
+                                                disabled />
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="row m-left-20">
                                 <div class="col-md-6">
@@ -339,53 +347,57 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="transport_to_deliver_details_div" style="display: none;">
-                                    <div class="form-group">
-                                        <label for="transport_to_deliver_details" class="control-label">
-                                            If YES, Please specify :
-                                        </label>
-                                        <input disabled type="text" name="transport_to_deliver_details"
-                                            id="transport_to_deliver_details" placeholder="If YES, Please specify"
-                                            class="form-control input-width"
-                                            value="{{ $user_service_request->warehouse_storage->transport_to_deliver_details }}" />
+                                @if ($user_service_request->warehouse_storage->transport_to_deliver == 'Yes')
+                                    <div class="col-md-6" id="transport_to_deliver_details_div">
+                                        <div class="form-group">
+                                            <label for="transport_to_deliver_details" class="control-label">
+                                                If YES, Please specify :
+                                            </label>
+                                            <input disabled type="text" name="transport_to_deliver_details"
+                                                id="transport_to_deliver_details" class="form-control input-width"
+                                                value="{{ $user_service_request->warehouse_storage->transport_to_deliver_details }}" />
 
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
-                            <div class="row m-left-20" id="collection_details_div" style="display: none;">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="date_of_collection" class="control-label">
-                                            Date of collection :
-                                        </label>
-                                        <input type="text" name="date_of_collection" id="date_of_collection"
-                                            placeholder="YYYY/MM/DD" class="form-control collection-input-width"
-                                            value="{{ $user_service_request->warehouse_storage->date_of_collection }}" disabled />
+                            @if ($user_service_request->warehouse_storage->transport_to_deliver == 'No')
+                                <div class="row m-left-20" id="collection_details_div">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="date_of_collection" class="control-label">
+                                                Date of collection :
+                                            </label>
+                                            <input type="text" name="date_of_collection" id="date_of_collection"
+                                                class="form-control collection-input-width"
+                                                value="{{ $user_service_request->warehouse_storage->date_of_collection }}"
+                                                disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="location_of_collection" class="control-label">
+                                                Central Location of collection :
+                                            </label>
+                                            <input type="text" name="location_of_collection"
+                                                id="location_of_collection" class="form-control collection-input-width"
+                                                value="{{ $user_service_request->warehouse_storage->location_of_collection }}"
+                                                disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="collection_contact_person" class="control-label">
+                                                Contact person and number :
+                                            </label>
+                                            <input type="text" name="collection_contact_person"
+                                                id="collection_contact_person" class="form-control collection-input-width"
+                                                value="{{ $user_service_request->warehouse_storage->collection_contact_person }}"
+                                                disabled />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="location_of_collection" class="control-label">
-                                            Central Location of collection :
-                                        </label>
-                                        <input type="text" name="location_of_collection" id="location_of_collection"
-                                            placeholder="Central Location of collection"
-                                            class="form-control collection-input-width"
-                                            value="{{ $user_service_request->warehouse_storage->location_of_collection }}" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="collection_contact_person" class="control-label">
-                                            Contact person and number :
-                                        </label>
-                                        <input type="text" name="collection_contact_person"
-                                            id="collection_contact_person" placeholder="Central Location of collection"
-                                            class="form-control collection-input-width"
-                                            value="{{ $user_service_request->warehouse_storage->collection_contact_person }}" disabled/>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
                             <div class="row m-left-20">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -404,49 +416,52 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row m-left-20" id="venue_details_div" style="display: none;">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="venues_distribution_date" class="control-label">
-                                            Date :
-                                        </label>
-                                        <input type="text" name="venues_distribution_date"
-                                            id="venues_distribution_date" placeholder="YYYY/MM/DD"
-                                            class="form-control collection-input-width"
-                                            value="{{ $user_service_request->warehouse_storage->venues_distribution_date }}" disabled />
+                            @if ($user_service_request->warehouse_storage->venues_distribution == 'Yes')
+                                <div class="row m-left-20" id="venue_details_div" style="display: none;">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="venues_distribution_date" class="control-label">
+                                                Date :
+                                            </label>
+                                            <input type="text" name="venues_distribution_date"
+                                                id="venues_distribution_date" class="form-control collection-input-width"
+                                                value="{{ $user_service_request->warehouse_storage->venues_distribution_date }}"
+                                                disabled />
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="venues_distribution_place" class="control-label">
+                                                Venue :
+                                            </label>
+                                            <input type="text" name="venues_distribution_place"
+                                                id="venues_distribution_place" class="form-control collection-input-width"
+                                                value="{{ $user_service_request->warehouse_storage->venues_distribution_place }}"
+                                                disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="venues_distribution_contact" class="control-label">
+                                                Contact person and number :
+                                            </label>
+                                            <input type="text" name="venues_distribution_contact"
+                                                id="venues_distribution_contact"
+                                                class="form-control collection-input-width"
+                                                value="{{ $user_service_request->warehouse_storage->venues_distribution_contact }}"
+                                                disabled />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="venues_distribution_place" class="control-label">
-                                            Venue :
-                                        </label>
-                                        <input type="text" name="venues_distribution_place"
-                                            id="venues_distribution_place" placeholder="Central Location of collection"
-                                            class="form-control collection-input-width"
-                                            value="{{ $user_service_request->warehouse_storage->venues_distribution_place }}" disabled/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="venues_distribution_contact" class="control-label">
-                                            Contact person and number :
-                                        </label>
-                                        <input type="text" name="venues_distribution_contact"
-                                            id="venues_distribution_contact" placeholder="Central Location of collection"
-                                            class="form-control collection-input-width"
-                                            value="{{ $user_service_request->warehouse_storage->venues_distribution_contact }}" disabled />
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     @elseif ($user_service_request->service_id == 2)
-        <div class="container" id="transportation_goods_to_venues" style="padding:5px 0px;display:none;">
+        <div class="container" id="transportation_goods_to_venues" style="padding:5px 0px;d">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -454,14 +469,236 @@
                             Transportation of Goods to Venues
                         </div>
                         <div class="panel-body">
-                            test
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="description_of_materials" class="control-label">
+                                            Description of Materials :
+                                        </label>
+                                        <input type="text" name="transport_description_of_materials"
+                                            id="transport_description_of_materials" disabled
+                                            class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->description_of_materials }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="goods_preparation_type_id" class="control-label">
+                                            How will the goods be prepared? :
+                                        </label>
+                                        <select class="form-control input-width"
+                                            name="transport_goods_preparation_type_id"
+                                            id="transport_goods_preparation_type_id" disabled>
+                                            @foreach ($goods_preparation_types as $goodsPreparationTypes)
+                                                <option @if ($user_service_request->transportation_of_goods->goods_preparation_type_id == $goodsPreparationTypes->id) selected @endif
+                                                    value="{{ $goodsPreparationTypes->id }}">
+                                                    {{ $goodsPreparationTypes->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="no_of_packaged_goods" class="control-label">
+                                            Number of packaged goods :
+                                        </label>
+                                        <input type="number" name="transport_no_of_packaged_goods"
+                                            id="transport_no_of_packaged_goods" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->no_of_packaged_goods }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="packaging_specifications" class="control-label">
+                                            Packaging specifications :
+                                        </label>
+                                        <input type="text" name="transport_packaging_specifications"
+                                            id="transport_packaging_specifications" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->packaging_specifications }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="weight_of_goods" class="control-label">
+                                            Weight of goods :
+                                        </label>
+                                        <input type="text" name="transport_weight_of_goods"
+                                            id="transport_weight_of_goods" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->weight_of_goods }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_dttm" class="control-label">
+                                            Collection Date and Time :
+                                        </label>
+                                        <input type="text" name="transport_collection_dttm"
+                                            id="transport_collection_dttm" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->collection_dttm }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_location" class="control-label">
+                                            Collection Location :
+                                        </label>
+                                        <input type="text" name="transport_collection_location"
+                                            id="transport_collection_location" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->collection_location }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_contact_name" class="control-label">
+                                            Collection Contact Name :
+                                        </label>
+                                        <input type="text" name="transport_collection_contact_name"
+                                            id="transport_collection_contact_name" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->collection_contact_name }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_contact_number" class="control-label">
+                                            Collection Contact Number :
+                                        </label>
+                                        <input type="text" name="transport_collection_contact_number"
+                                            id="transport_collection_contact_number" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->collection_contact_number }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_dttm" class="control-label">
+                                            Delivery Date and Time :
+                                        </label>
+                                        <input type="text" name="transport_delivery_dttm" id="transport_delivery_dttm"
+                                            class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->delivery_dttm }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_location" class="control-label">
+                                            Delivery Location :
+                                        </label>
+                                        <input type="text" name="transport_delivery_location"
+                                            id="transport_delivery_location" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->delivery_location }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_contact_name" class="control-label">
+                                            Delivery Contact Name :
+                                        </label>
+                                        <input type="text" name="transport_delivery_contact_name"
+                                            id="transport_delivery_contact_name" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->delivery_contact_name }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_contact_number" class="control-label">
+                                            Delivery Contact Number :
+                                        </label>
+                                        <input type="text" name="transport_delivery_contact_number"
+                                            id="transport_delivery_contact_number" class="form-control input-width"
+                                            value="{{ $user_service_request->transportation_of_goods->delivery_contact_number }}"
+                                            disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="any_dangerous" class="control-label">
+                                            Are there any Dangerous or Hazardous Goods? :
+                                        </label>
+                                        <select class="form-control input-width" name="transport_any_dangerous"
+                                            id="transport_any_dangerous" disabled>
+                                            <option @if ($user_service_request->transportation_of_goods->any_dangerous == 'Yes') selected @endif value="Yes">Yes
+                                            </option>
+                                            <option @if ($user_service_request->transportation_of_goods->any_dangerous == 'No') selected @endif value="No">No
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @if ($user_service_request->transportation_of_goods->any_dangerous == 'Yes')
+                                    <div class="col-md-6" id="transport_dangerous_details_div">
+                                        <div class="form-group">
+                                            <label for="dangerous_details" class="control-label">
+                                                If YES, Please specify :
+                                            </label>
+                                            <input type="text" name="transport_dangerous_details"
+                                                id="transport_dangerous_details" class="form-control input-width"
+                                                value="{{ $user_service_request->transportation_of_goods->dangerous_details }}"
+                                                disabled />
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="special_handling_requirements" class="control-label">
+                                            Any special handling requirements from the supplier? :
+                                        </label>
+                                        <select class="form-control input-width"
+                                            name="transport_special_handling_requirements"
+                                            id="transport_special_handling_requirements" disabled>
+                                            <option @if ($user_service_request->transportation_of_goods->special_handling_requirements == 'Yes') selected @endif value="Yes">Yes
+                                            </option>
+                                            <option @if ($user_service_request->transportation_of_goods->special_handling_requirements == 'No') selected @endif value="No">No
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @if ($user_service_request->transportation_of_goods->special_handling_requirements == 'Yes')
+                                    <div class="col-md-6" id="transport_special_handling_details_div">
+                                        <div class="form-group">
+                                            <label for="special_handling_details" class="control-label">
+                                                If YES, Please specify :
+                                            </label>
+                                            <input type="text" name="transport_special_handling_details"
+                                                id="transport_special_handling_details" class="form-control input-width"
+                                                value="{{ $user_service_request->transportation_of_goods->special_handling_details }}"
+                                                disabled />
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     @elseif ($user_service_request->service_id == 3)
-        <div class="container" id="on_venue_assistance" style="padding:5px 0px;display:none;">
+        <div class="container" id="on_venue_assistance" style="padding:5px 0px;">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -478,69 +715,6 @@
     @endif
     @push('scripts')
         <script>
-            $(document).ready(function() {
-                var service = {!! $user_service_request->service_id !!}
-                if (service == '1') {
-                    $("#warehouse_storage_space").show();
-                    $("#transportation_goods_to_venues").hide();
-                    $("#on_venue_assistance").hide();
-                } else if (service == '2') {
-                    $("#warehouse_storage_space").hide();
-                    $("#transportation_goods_to_venues").show();
-                    $("#on_venue_assistance").hide();
-                } else if (service == '3') {
-
-                    $("#warehouse_storage_space").hide();
-                    $("#transportation_goods_to_venues").hide();
-                    $("#on_venue_assistance").show();
-                } else {
-                    $("#warehouse_storage_space").hide();
-                    $("#transportation_goods_to_venues").hide();
-                    $("#on_venue_assistance").hide();
-                }
-
-                var any_dangerous = "{!! $user_service_request->warehouse_storage->any_dangerous !!}"
-                if (any_dangerous == 'Yes') {
-                    $("#dangerous_details_div").show();
-                } else {
-                    $("#dangerous_details_div").hide();
-                }
-
-                var dissolution_plan_place = "{!! $user_service_request->warehouse_storage->dissolution_plan_place !!}"
-                if (dissolution_plan_place == 'Yes') {
-                    $("#dissolution_plan_details_div").show();
-                } else {
-                    $("#dissolution_plan_details_div").hide();
-                }
-
-                var special_handling_requirements = "{!! $user_service_request->warehouse_storage->special_handling_requirements !!}"
-                if (special_handling_requirements == 'Yes') {
-                    $("#special_handling_details_div").show();
-                } else {
-                    $("#special_handling_details_div").hide();
-                }
-
-                var transport_to_deliver = "{!! $user_service_request->warehouse_storage->transport_to_deliver !!}"
-                if (transport_to_deliver == 'Yes') {
-                    $("#transport_to_deliver_details_div").show();
-                    $("#collection_details_div").hide();
-                } else if (transport_to_deliver == 'No') {
-                    $("#transport_to_deliver_details_div").hide();
-                    $("#collection_details_div").show();
-                } else {
-                    $("#transport_to_deliver_details_div").hide();
-                    $("#collection_details_div").hide();
-                }
-
-                var venues_distribution = "{!! $user_service_request->warehouse_storage->venues_distribution !!}"
-                if (venues_distribution == 'Yes') {
-                    $("#venue_details_div").show();
-                } else {
-                    $("#venue_details_div").hide();
-                }
-            });
-        </script>
-        <script>
             $(function() {
                 $('#storage_start_date').datetimepicker({
                     format: 'Y-MM-DD',
@@ -554,68 +728,14 @@
                 $('#venues_distribution_date').datetimepicker({
                     format: 'Y-MM-DD',
                 });
-            });
-            $('input:radio[name="service"]').change(
-                function() {
-                    if (this.checked && this.value == '1') {
-                        $("#warehouse_storage_space").show();
-                        $("#transportation_goods_to_venues").hide();
-                        $("#on_venue_assistance").hide();
-                    } else if (this.checked && this.value == '2') {
-                        $("#warehouse_storage_space").hide();
-                        $("#transportation_goods_to_venues").show();
-                        $("#on_venue_assistance").hide();
-                    } else if (this.checked && this.value == '3') {
 
-                        $("#warehouse_storage_space").hide();
-                        $("#transportation_goods_to_venues").hide();
-                        $("#on_venue_assistance").show();
-                    } else {
-                        $("#warehouse_storage_space").hide();
-                        $("#transportation_goods_to_venues").hide();
-                        $("#on_venue_assistance").hide();
-                    }
+                $('#transport_collection_dttm').datetimepicker({
+                    format: 'Y-MM-DD',
                 });
-            $('#any_dangerous').on('change', function() {
-                if (this.value == 'Yes') {
-                    $("#dangerous_details_div").show();
-                } else {
-                    $("#dangerous_details_div").hide();
-                }
-            });
-            $('#dissolution_plan_place').on('change', function() {
-                if (this.value == 'Yes') {
-                    $("#dissolution_plan_details_div").show();
-                } else {
-                    $("#dissolution_plan_details_div").hide();
-                }
-            });
-            $('#special_handling_requirements').on('change', function() {
-                if (this.value == 'Yes') {
-                    $("#special_handling_details_div").show();
-                } else {
-                    $("#special_handling_details_div").hide();
-                }
-            });
-            $('#transport_to_deliver').on('change', function() {
-                if (this.value == 'Yes') {
-                    $("#transport_to_deliver_details_div").show();
-                    $("#collection_details_div").hide();
-                } else if (this.value == 'No') {
-                    $("#transport_to_deliver_details_div").hide();
-                    $("#collection_details_div").show();
-                } else {
-                    $("#transport_to_deliver_details_div").hide();
-                    $("#collection_details_div").hide();
-                }
-            });
 
-            $('#venues_distribution').on('change', function() {
-                if (this.value == 'Yes') {
-                    $("#venue_details_div").show();
-                } else {
-                    $("#venue_details_div").hide();
-                }
+                $('#transport_delivery_dttm').datetimepicker({
+                    format: 'Y-MM-DD',
+                });
             });
         </script>
     @endpush
