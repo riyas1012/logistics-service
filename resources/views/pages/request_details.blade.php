@@ -705,8 +705,233 @@
                         <div class="panel-heading">
                             On-Venue Assistance* (Crew, MHE, Other Venue Support)
                         </div>
-                        <div class="panel-body">
-                            test
+                        <div class="panel-body" style="padding: 0px 25px;">
+                            <div class="row m-left20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="crew_assistance" class="control-label">
+                                            Do you require CREW assistance? :
+                                        </label>
+                                        <select class="form-control input-width" name="crew_assistance"
+                                            id="crew_assistance" disabled>
+                                            <option @if ($user_service_request->on_venue_assistance->crew_assistance == 'Yes') selected @endif value="Yes">Yes
+                                            </option>
+                                            <option @if ($user_service_request->on_venue_assistance->crew_assistance == 'No') selected @endif value="No">No
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            @if($user_service_request->on_venue_assistance->crew_assistance == 'Yes')
+                                <div id="crew_assistance_div">
+                                    <div class="row m-left20">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="crew_quantity" class="control-label">
+                                                    If YES, specify Number of crew required
+                                                </label>
+                                                <input type="hidden" class="form-control ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-left20">
+                                        <div class="col-md-3" style="margin-right: 50px;">
+                                            <div class="form-group">
+                                                <label for="crew_quantity" class="control-label">
+                                                    Crew :
+                                                </label>
+                                                <input type="number" min="1" name="crew_quantity" id="crew_quantity"
+                                                    placeholder="Crew Quantity" class="form-control "
+                                                    value="{{ $user_service_request->on_venue_assistance->crew_quantity }}" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="supervisor_quantity" class="control-label">
+                                                    Supervisor :
+                                                </label>
+                                                <input type="number" min="1" name="supervisor_quantity"
+                                                    id="supervisor_quantity" placeholder="Supervisor Quantity"
+                                                    class="form-control " value="{{ $user_service_request->on_venue_assistance->supervisor_quantity }}" disabled/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="row m-left20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="material_handling_equipment" class="control-label">
+                                            Do you require MHE (Material Handling Equipment)? :
+                                        </label>
+                                        <select class="form-control input-width" name="material_handling_equipment"
+                                            id="material_handling_equipment" disabled>
+                                            <option @if ($user_service_request->on_venue_assistance->material_handling_equipment == 'Yes') selected @endif value="Yes">Yes
+                                            </option>
+                                            <option @if ($user_service_request->on_venue_assistance->material_handling_equipment == 'No') selected @endif value="No">No
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            @if($user_service_request->on_venue_assistance->material_handling_equipment == 'Yes')
+                                <div id="material_handling_equipment_div">
+                                    <div class="row m-left20">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="crew_quantity" class="control-label">
+                                                    If YES, specify what MHE and quantity of MHE required
+                                                </label>
+                                                <input type="hidden" class="form-control ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-left20">
+                                        <div class="col-md-3" style="margin-right: 50px;">
+                                            <div class="form-group">
+                                                <label for="forklift_quantity" class="control-label">
+                                                    Forklift :
+                                                </label>
+                                                <input type="number" min="1" name="forklift_quantity"
+                                                    id="forklift_quantity" placeholder="Forklift Quantity"
+                                                    class="form-control " value="{{ $user_service_request->on_venue_assistance->forklift_quantity }}" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" style="margin-right: 50px;">
+                                            <div class="form-group">
+                                                <label for="pallet_jack_quantity" class="control-label">
+                                                    Pallet Jack :
+                                                </label>
+                                                <input type="number" min="1" name="pallet_jack_quantity"
+                                                    id="pallet_jack_quantity" placeholder="Pallet Jack Quantity"
+                                                    class="form-control " value="{{ $user_service_request->on_venue_assistance->pallet_jack_quantity }}" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="trolley_quantity" class="control-label">
+                                                    Trolley :
+                                                </label>
+                                                <input type="number" min="1" name="trolley_quantity"
+                                                    id="trolley_quantity" placeholder="Trolley Quantity"
+                                                    class="form-control " value="{{ $user_service_request->on_venue_assistance->trolley_quantity }}" disabled/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="row m-left20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="logistics_assistance_venue" class="control-label">
+                                            Do you require other Logistics assistance on Venue :
+                                        </label>
+                                        <select class="form-control input-width" name="logistics_assistance_venue"
+                                            id="logistics_assistance_venue" disabled>
+                                            <option @if ($user_service_request->on_venue_assistance->logistics_assistance_venue == 'Yes') selected @endif value="Yes">Yes
+                                            </option>
+                                            <option @if ($user_service_request->on_venue_assistance->logistics_assistance_venue == 'No') selected @endif value="No">No
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @if($user_service_request->on_venue_assistance->logistics_assistance_venue == 'Yes')
+                                    <div class="col-md-6" id="logistics_assistance_venue_div" style="display: none;">
+                                        <div class="form-group">
+                                            <label for="logistics_assistance_venue_details" class="control-label">
+                                                If yes, please specify
+                                            </label>
+                                            <input type="text" name="logistics_assistance_venue_details"
+                                                id="logistics_assistance_venue_details" placeholder="If yes, please specify"
+                                                class="form-control input-width"
+                                                value="{{ $user_service_request->on_venue_assistance->logistics_assistance_venue_details }}" disabled/>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="row m-left20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="short_breif_activity" class="control-label">
+                                            Provide a short brief of the activity :
+                                        </label>
+                                        <input type="text" name="short_breif_activity" id="short_breif_activity"
+                                            placeholder="Provide a short brief of the activity"
+                                            class="form-control input-width" value="{{ $user_service_request->on_venue_assistance->short_breif_activity }}" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left20">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="location" class="control-label">
+                                            Location :
+                                        </label>
+                                        <input type="text" name="location" id="location" placeholder="Location"
+                                            class="form-control" value="{{ $user_service_request->on_venue_assistance->location }}" style="width: 250px;" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ova_contact_name" class="control-label">
+                                            Contact Name :
+                                        </label>
+                                        <input type="text" name="ova_contact_name" id="ova_contact_name"
+                                            placeholder="Contact Name" class="form-control "
+                                            value="{{ $user_service_request->on_venue_assistance->contact_name }}" style="width: 250px;" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="contact_number" class="control-label">
+                                            Contact Number :
+                                        </label>
+                                        <input type="text" name="ova_contact_number" id="ova_contact_number"
+                                            placeholder="Contact Number" class="form-control "
+                                            value="{{ $user_service_request->on_venue_assistance->contact_number }}" style="width: 250px;" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="start_date" class="control-label">
+                                            Start Date :
+                                        </label>
+                                        <input type="text" name="start_date" id="start_date" placeholder="Start Date"
+                                            class="form-control input-width" value="{{ $user_service_request->on_venue_assistance->start_date }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="start_time" class="control-label">
+                                            Start Time :
+                                        </label>
+                                        <input type="text" name="start_time" id="start_time" placeholder="Start Date"
+                                            class="form-control input-width" value="{{ $user_service_request->on_venue_assistance->start_time }}" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="end_date" class="control-label">
+                                            End Date :
+                                        </label>
+                                        <input type="text" name="end_date" id="end_date" placeholder="End Date"
+                                            class="form-control input-width" value="{{ $user_service_request->on_venue_assistance->end_date }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="end_time" class="control-label">
+                                            End Time :
+                                        </label>
+                                        <input type="text" name="end_time" id="end_time" placeholder="End Date"
+                                            class="form-control input-width" value="{{ $user_service_request->on_venue_assistance->end_time }}" disabled />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -735,6 +960,23 @@
 
                 $('#transport_delivery_dttm').datetimepicker({
                     format: 'Y-MM-DD',
+                });
+
+                $('#start_date').datetimepicker({
+                    format: 'Y-MM-DD',
+                });
+
+                $('#end_date').datetimepicker({
+                    format: 'Y-MM-DD',
+                });
+
+                $('#start_time').datetimepicker({
+                    format: 'hh:mm'
+                    ampm: true,
+                });
+
+                $('#end_time').datetimepicker({
+                    format : 'hh:mm A'
                 });
             });
         </script>

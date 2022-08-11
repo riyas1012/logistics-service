@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Mail\OtpMail;
 use App\Mail\ResetPasswordEMail;
+use App\Models\OnVenueAssistance;
 use App\Models\PasswordReset;
 use App\Models\TransportationOfGoods;
 use App\Models\User;
@@ -91,12 +92,12 @@ class UserController extends Controller
         return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
     }
 
-    public function getUniqueId(){
+    public function getUniqueId()
+    {
         $uniqueId = $this->generateRandomKey(12);
-        if(UserServiceRequest::where('unique_id',$uniqueId)->count() == 0){
+        if (UserServiceRequest::where('unique_id', $uniqueId)->count() == 0) {
             return $uniqueId;
-        }
-        else{
+        } else {
             return $this->getUniqueId();
         }
     }
@@ -204,7 +205,8 @@ class UserController extends Controller
         return array('status' => true);
     }
 
-    public function otpVerification(Request $request){
+    public function otpVerification(Request $request)
+    {
 
         $rules = array(
             'digit1' => 'required|integer',
@@ -222,15 +224,16 @@ class UserController extends Controller
         if ($validator->fails()) {
             return array('status' => false, 'message' => $validator, 'error_code' => '100');
         }
-        $otpDigitCombine = $request->get('digit1').$request->get('digit2').$request->get('digit3').$request->get('digit4').$request->get('digit5').$request->get('digit6');
-        $user = User::where('id',$request->attributes->get('user_id'))->where('otp',$otpDigitCombine)->first();
-        if(!$user){
-            return array('status' => false, 'message' =>'Please enter valid OTP.');
+        $otpDigitCombine = $request->get('digit1') . $request->get('digit2') . $request->get('digit3') . $request->get('digit4') . $request->get('digit5') . $request->get('digit6');
+        $user = User::where('id', $request->attributes->get('user_id'))->where('otp', $otpDigitCombine)->first();
+        if (!$user) {
+            return array('status' => false, 'message' => 'Please enter valid OTP.');
         }
         return array('status' => true);
     }
 
-    public function warehouseStorages(Request $request){
+    public function warehouseStorages(Request $request)
+    {
         $rules = array(
             'description_of_material' => 'required',
             'storage_type_id' => 'required',
@@ -248,24 +251,24 @@ class UserController extends Controller
             'venues_distribution' => 'required',
         );
 
-        if($request->get('any_dangerous') == 'Yes'){
+        if ($request->get('any_dangerous') == 'Yes') {
             $rules['dangerous_details'] = 'required';
         }
-        if($request->get('dissolution_plan_place') == 'Yes'){
+        if ($request->get('dissolution_plan_place') == 'Yes') {
             $rules['dissolution_plan_details'] = 'required';
         }
-        if($request->get('special_handling_requirements') == 'Yes'){
+        if ($request->get('special_handling_requirements') == 'Yes') {
             $rules['special_handling_details'] = 'required';
         }
-        if($request->get('transport_to_deliver') == 'Yes'){
+        if ($request->get('transport_to_deliver') == 'Yes') {
             $rules['transport_to_deliver_details'] = 'required';
         }
-        if($request->get('transport_to_deliver') == 'No'){
+        if ($request->get('transport_to_deliver') == 'No') {
             $rules['date_of_collection'] = 'required|date';
             $rules['location_of_collection'] = 'required';
             $rules['collection_contact_person'] = 'required|integer';
         }
-        if($request->get('venues_distribution') == 'Yes'){
+        if ($request->get('venues_distribution') == 'Yes') {
             $rules['venues_distribution_date'] = 'required|date';
             $rules['venues_distribution_place'] = 'required';
             $rules['venues_distribution_contact'] = 'required|integer';
@@ -280,8 +283,8 @@ class UserController extends Controller
         }
 
         DB::beginTransaction();
-        try{
-            $uniqueId =  $this->getUniqueId();
+        try {
+            $uniqueId = $this->getUniqueId();
             $userServiceRequest = new UserServiceRequest();
             $userServiceRequest->user_id = $request->attributes->get('user_id');
             $userServiceRequest->unique_id = $uniqueId;
@@ -323,16 +326,16 @@ class UserController extends Controller
             $warehouseStorage->save();
 
             DB::commit();
-            return array('status'=>true);
-        }
-        catch(Exception $e){
-            Log::info("error:".json_encode($e->getMessage()));
+            return array('status' => true);
+        } catch (Exception $e) {
+            Log::info("error:" . json_encode($e->getMessage()));
             DB::rollBack();
-            return array('status'=>false,'message'=> 'something went wrong!!');
+            return array('status' => false, 'message' => 'something went wrong!!');
         }
     }
 
-    public function transportationOfGoods(Request $request){
+    public function transportationOfGoods(Request $request)
+    {
         $rules = array(
             'transport_description_of_materials' => 'required',
             'transport_goods_preparation_type_id' => 'required',
@@ -351,10 +354,10 @@ class UserController extends Controller
             'transport_special_handling_requirements' => 'required',
         );
 
-        if($request->get('transport_any_dangerous') == 'Yes'){
+        if ($request->get('transport_any_dangerous') == 'Yes') {
             $rules['transport_dangerous_details'] = 'required';
         }
-        if($request->get('transport_special_handling_requirements') == 'Yes'){
+        if ($request->get('transport_special_handling_requirements') == 'Yes') {
             $rules['transport_special_handling_details'] = 'required';
         }
 
@@ -366,8 +369,8 @@ class UserController extends Controller
             return array('status' => false, 'message' => $validator, 'error_code' => '100');
         }
         DB::beginTransaction();
-        try{
-            $uniqueId =  $this->getUniqueId();
+        try {
+            $uniqueId = $this->getUniqueId();
             $userServiceRequest = new UserServiceRequest();
             $userServiceRequest->user_id = $request->attributes->get('user_id');
             $userServiceRequest->unique_id = $uniqueId;
@@ -402,17 +405,98 @@ class UserController extends Controller
             $transportationOfGoods->save();
 
             DB::commit();
-            return array('status'=>true);
-        }
-        catch(Exception $e){
-            Log::info("error:".json_encode($e->getMessage()));
+            return array('status' => true);
+        } catch (Exception $e) {
+            Log::info("error:" . json_encode($e->getMessage()));
             DB::rollBack();
-            return array('status'=>false,'message'=> 'something went wrong!!');
+            return array('status' => false, 'message' => 'something went wrong!!');
+        }
+    }
+
+    public function onVenueAssitance(Request $request)
+    {
+        $rules = array(
+            'crew_assistance' => 'required',
+            'material_handling_equipment' => 'required',
+            'logistics_assistance_venue' => 'required',
+            'short_breif_activity' => 'required',
+            'location' => 'required',
+            'ova_contact_name' => 'required',
+            'ova_contact_number' => 'required',
+            'start_date' => 'required|date',
+            'start_time' => 'required',
+            'end_date' => 'required|date',
+            'end_time' => 'required',
+        );
+
+        if ($request->get('crew_assistance') == 'Yes') {
+            $rules['crew_quantity'] = 'required_without:supervisor_quantity|integer';
+            $rules['supervisor_quantity'] = 'required_without:crew_quantity|integer';
+        }
+        if ($request->get('material_handling_equipment') == 'Yes') {
+            $rules['forklift_quantity'] = 'required_without:pallet_jack_quantity,trolley_quantity|integer';
+            $rules['pallet_jack_quantity'] = 'required_without:forklift_quantity,trolley_quantity|integer';
+            $rules['trolley_quantity'] = 'required_without:forklift_quantity,pallet_jack_quantity|integer';
+        }
+        if ($request->get('logistics_assistance_venue') == 'Yes') {
+            $rules['logistics_assistance_venue_details'] = 'required';
+        }
+
+        $validator = Validator::make(
+            $request->all(),
+            $rules
+        );
+        if ($validator->fails()) {
+            return array('status' => false, 'message' => $validator, 'error_code' => '100');
+        }
+
+        DB::beginTransaction();
+        try {
+            $uniqueId = $this->getUniqueId();
+            $userServiceRequest = new UserServiceRequest();
+            $userServiceRequest->user_id = $request->attributes->get('user_id');
+            $userServiceRequest->unique_id = $uniqueId;
+            $userServiceRequest->service_id = $request->get('service');
+            $userServiceRequest->name = $request->get('name');
+            $userServiceRequest->email = $request->get('email');
+            $userServiceRequest->mobile = $request->get('mobile');
+            $userServiceRequest->project_functional_area = $request->get('project_functional_area');
+            $userServiceRequest->job_title = $request->get('job_title');
+            $userServiceRequest->save();
+
+            $onVenueAssistance = new OnVenueAssistance();
+            $onVenueAssistance->user_id = $request->attributes->get('user_id');
+            $onVenueAssistance->user_service_request_id = $userServiceRequest->id;
+            $onVenueAssistance->crew_assistance = $request->get('crew_assistance');
+            $onVenueAssistance->crew_quantity = $request->get('crew_quantity');
+            $onVenueAssistance->supervisor_quantity = $request->get('supervisor_quantity');
+            $onVenueAssistance->material_handling_equipment = $request->get('material_handling_equipment');
+            $onVenueAssistance->forklift_quantity = $request->get('forklift_quantity');
+            $onVenueAssistance->pallet_jack_quantity = $request->get('pallet_jack_quantity');
+            $onVenueAssistance->trolley_quantity = $request->get('trolley_quantity');
+            $onVenueAssistance->logistics_assistance_venue = $request->get('logistics_assistance_venue');
+            $onVenueAssistance->logistics_assistance_venue_details = $request->get('logistics_assistance_venue_details');
+            $onVenueAssistance->short_breif_activity = $request->get('short_breif_activity');
+            $onVenueAssistance->location = $request->get('location');
+            $onVenueAssistance->contact_name = $request->get('ova_contact_name');
+            $onVenueAssistance->contact_number = $request->get('ova_contact_number');
+            $onVenueAssistance->start_date = $request->get('start_date');
+            $onVenueAssistance->start_time = $request->get('start_time');
+            $onVenueAssistance->end_date = $request->get('end_date');
+            $onVenueAssistance->end_time = $request->get('end_time');
+            $onVenueAssistance->save();
+
+            DB::commit();
+            return array('status' => true);
+        } catch (Exception $e) {
+            Log::info("error:" . json_encode($e->getMessage()));
+            DB::rollBack();
+            return array('status' => false, 'message' => 'something went wrong!!');
         }
     }
 
     public function getServiceRequest(Request $request)
     {
-        return UserServiceRequest::where('user_id',$request->attributes->get('user_id'))->get();
+        return UserServiceRequest::where('user_id', $request->attributes->get('user_id'))->get();
     }
 }
