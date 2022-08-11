@@ -59,7 +59,11 @@ class UserController extends Controller
             return redirect()->route('request.form')->with('success','Successfully Added');
 
         } else if ($request->get('service') == '3') {
-
+            $onVenueAssitanceStatus = $apiUserController->onVenueAssitance($request);
+            if (!$onVenueAssitanceStatus['status']) {
+                return back()->withErrors($onVenueAssitanceStatus['message'])->withInput();
+            }
+            return redirect()->route('request.form')->with('success','Successfully Added');
         } else {
             return back()->withErrors('Please choose valid service')->withInput();
         }

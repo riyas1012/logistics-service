@@ -18,4 +18,8 @@ class UserServiceRequest extends Model
     public function transportation_of_goods(){
         return $this->hasOne(TransportationOfGoods::class);
     }
+
+    public function on_venue_assistance(){
+        return $this->hasOne(OnVenueAssistance::class);
+    }
 }
