@@ -168,7 +168,7 @@
                                             placeholder="E.g.: Brown Foldable Plastic Tables 1.5x.3m"
                                             class="form-control input-width"
                                             value="{{ old('description_of_materials') }}" />
-                                        @error('description_of_material')
+                                        @error('description_of_materials')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>
@@ -332,7 +332,7 @@
                                             <option @if (old('any_dangerous') == 'No') selected @endif value="No">No
                                             </option>
                                         </select>
-                                        @error('goods_preparation_type_id')
+                                        @error('any_dangerous')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>
@@ -604,7 +604,302 @@
                             Transportation of Goods to Venues
                         </div>
                         <div class="panel-body">
-                            test
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="description_of_materials" class="control-label">
+                                            Description of Materials :
+                                        </label>
+                                        <input type="text" name="transport_description_of_materials"
+                                            id="transport_description_of_materials"
+                                            placeholder="E.g.: Brown Foldable Plastic Tables 1.5x.3m"
+                                            class="form-control input-width"
+                                            value="{{ old('transport_description_of_materials') }}" />
+                                        @error('transport_description_of_materials')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="goods_preparation_type_id" class="control-label">
+                                            How will the goods be prepared? :
+                                        </label>
+                                        <select class="form-control input-width" name="transport_goods_preparation_type_id"
+                                            id="transport_goods_preparation_type_id">
+                                            <option value="">Select Goods Preparation Type</option>
+                                            @foreach ($goods_preparation_types as $goodsPreparationTypes)
+                                                <option @if (old('transport_goods_preparation_type_id') == $goodsPreparationTypes->id) selected @endif
+                                                    value="{{ $goodsPreparationTypes->id }}">
+                                                    {{ $goodsPreparationTypes->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('transport_goods_preparation_type_id')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="no_of_packaged_goods" class="control-label">
+                                            Number of packaged goods :
+                                        </label>
+                                        <input type="number" name="transport_no_of_packaged_goods" id="transport_no_of_packaged_goods"
+                                            placeholder="e.g.: 200" class="form-control input-width"
+                                            value="{{ old('transport_no_of_packaged_goods') }}" />
+                                        @error('transport_no_of_packaged_goods')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="packaging_specifications" class="control-label">
+                                            Packaging specifications :
+                                        </label>
+                                        <input type="text" name="transport_packaging_specifications"
+                                            id="transport_packaging_specifications"
+                                            placeholder="Please specify if the dimensions are per unit/box/pallet"
+                                            class="form-control input-width"
+                                            value="{{ old('transport_packaging_specifications') }}" />
+                                        @error('transport_packaging_specifications')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="weight_of_goods" class="control-label">
+                                            Weight of goods :
+                                        </label>
+                                        <input type="text" name="transport_weight_of_goods" id="transport_weight_of_goods"
+                                            placeholder="Please specify if the weight is per unit/box/pallet or total"
+                                            class="form-control input-width" value="{{ old('transport_weight_of_goods') }}" />
+                                        @error('transport_weight_of_goods')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_dttm" class="control-label">
+                                            Collection Date and Time :
+                                        </label>
+                                        <input type="text" name="transport_collection_dttm" id="transport_collection_dttm"
+                                            placeholder="YYYY/MM/DD" class="form-control input-width"
+                                            value="{{ old('transport_collection_dttm') }}" />
+                                        @error('transport_collection_dttm')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_location" class="control-label">
+                                            Collection Location :
+                                        </label>
+                                        <input type="text" name="transport_collection_location" id="transport_collection_location"
+                                            placeholder="Collection Location" class="form-control input-width"
+                                            value="{{ old('transport_collection_location') }}" />
+                                        @error('transport_collection_location')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_contact_name" class="control-label">
+                                            Collection Contact Name :
+                                        </label>
+                                        <input type="text" name="transport_collection_contact_name" id="transport_collection_contact_name"
+                                            placeholder="Collection Contact Name" class="form-control input-width"
+                                            value="{{ old('transport_collection_contact_name') }}" />
+                                        @error('transport_collection_contact_name')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="collection_contact_number" class="control-label">
+                                            Collection Contact Number :
+                                        </label>
+                                        <input type="text" name="transport_collection_contact_number"
+                                            id="transport_collection_contact_number" placeholder="Collection Contact Number"
+                                            class="form-control input-width"
+                                            value="{{ old('transport_collection_contact_number') }}" />
+                                        @error('transport_collection_contact_number')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_dttm" class="control-label">
+                                            Delivery Date and Time :
+                                        </label>
+                                        <input type="text" name="transport_delivery_dttm" id="transport_delivery_dttm"
+                                            placeholder="YYYY/MM/DD" class="form-control input-width"
+                                            value="{{ old('transport_delivery_dttm') }}" />
+                                        @error('transport_delivery_dttm')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_location" class="control-label">
+                                            Delivery Location :
+                                        </label>
+                                        <input type="text" name="transport_delivery_location" id="transport_delivery_location"
+                                            placeholder="Delivery Location" class="form-control input-width"
+                                            value="{{ old('transport_delivery_location') }}" />
+                                        @error('transport_delivery_location')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_contact_name" class="control-label">
+                                            Delivery Contact Name :
+                                        </label>
+                                        <input type="text" name="transport_delivery_contact_name" id="transport_delivery_contact_name"
+                                            placeholder="Delivery Contact Name" class="form-control input-width"
+                                            value="{{ old('transport_delivery_contact_name') }}" />
+                                        @error('transport_delivery_contact_name')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="delivery_contact_number" class="control-label">
+                                            Delivery Contact Number :
+                                        </label>
+                                        <input type="text" name="transport_delivery_contact_number" id="transport_delivery_contact_number"
+                                            placeholder="Delivery Contact Number" class="form-control input-width"
+                                            value="{{ old('transport_delivery_contact_number') }}" />
+                                        @error('transport_delivery_contact_number')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="any_dangerous" class="control-label">
+                                            Are there any Dangerous or Hazardous Goods? :
+                                        </label>
+                                        <select class="form-control input-width" name="transport_any_dangerous" id="transport_any_dangerous">
+                                            <option value="">-- Select --</option>
+                                            <option @if (old('transport_any_dangerous') == 'Yes') selected @endif value="Yes">Yes
+                                            </option>
+                                            <option @if (old('transport_any_dangerous') == 'No') selected @endif value="No">No
+                                            </option>
+                                        </select>
+                                        @error('transport_any_dangerous')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="transport_dangerous_details_div" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="dangerous_details" class="control-label">
+                                            If YES, Please specify :
+                                        </label>
+                                        <input type="text" name="transport_dangerous_details" id="transport_dangerous_details"
+                                            placeholder="If YES, Please specify" class="form-control input-width"
+                                            value="{{ old('transport_dangerous_details') }}" />
+                                        @error('transport_dangerous_details')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-left-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="special_handling_requirements" class="control-label">
+                                            Any special handling requirements from the supplier? :
+                                        </label>
+                                        <select class="form-control input-width" name="transport_special_handling_requirements"
+                                            id="transport_special_handling_requirements">
+                                            <option value="">-- Select --</option>
+                                            <option @if (old('transport_special_handling_requirements') == 'Yes') selected @endif value="Yes">Yes
+                                            </option>
+                                            <option @if (old('transport_special_handling_requirements') == 'No') selected @endif value="No">No
+                                            </option>
+                                        </select>
+                                        @error('transport_special_handling_requirements')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="transport_special_handling_details_div" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="special_handling_details" class="control-label">
+                                            If YES, Please specify :
+                                        </label>
+                                        <input type="text" name="transport_special_handling_details"
+                                            id="transport_special_handling_details" placeholder="If YES, Please specify"
+                                            class="form-control input-width"
+                                            value="{{ old('transport_special_handling_details') }}" />
+                                        @error('transport_special_handling_details')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -640,10 +935,65 @@
                     $("#warehouse_storage_space").show();
                     $("#transportation_goods_to_venues").hide();
                     $("#on_venue_assistance").hide();
+
+                    var any_dangerous = "{!! old('any_dangerous') !!}"
+                    if (any_dangerous == 'Yes') {
+                        $("#dangerous_details_div").show();
+                    } else {
+                        $("#dangerous_details_div").hide();
+                    }
+
+                    var dissolution_plan_place = "{!! old('dissolution_plan_place') !!}"
+                    if (dissolution_plan_place == 'Yes') {
+                        $("#dissolution_plan_details_div").show();
+                    } else {
+                        $("#dissolution_plan_details_div").hide();
+                    }
+
+                    var special_handling_requirements = "{!! old('special_handling_requirements') !!}"
+                    if (special_handling_requirements == 'Yes') {
+                        $("#special_handling_details_div").show();
+                    } else {
+                        $("#special_handling_details_div").hide();
+                    }
+
+                    var transport_to_deliver = "{!! old('transport_to_deliver') !!}"
+                    if (transport_to_deliver == 'Yes') {
+                        $("#transport_to_deliver_details_div").show();
+                        $("#collection_details_div").hide();
+                    } else if (transport_to_deliver == 'No') {
+                        $("#transport_to_deliver_details_div").hide();
+                        $("#collection_details_div").show();
+                    } else {
+                        $("#transport_to_deliver_details_div").hide();
+                        $("#collection_details_div").hide();
+                    }
+
+                    var venues_distribution = "{!! old('venues_distribution') !!}"
+                    if (venues_distribution == 'Yes') {
+                        $("#venue_details_div").show();
+                    } else {
+                        $("#venue_details_div").hide();
+                    }
                 } else if (service == '2') {
                     $("#warehouse_storage_space").hide();
                     $("#transportation_goods_to_venues").show();
                     $("#on_venue_assistance").hide();
+
+                    var transport_any_dangerous = "{!! old('transport_any_dangerous') !!}"
+                    if (transport_any_dangerous == 'Yes') {
+                        $("#transport_dangerous_details_div").show();
+                    } else {
+                        $("#transport_dangerous_details_div").hide();
+                    }
+
+                    var transport_special_handling_requirements = "{!! old('transport_special_handling_requirements') !!}"
+                    if (transport_special_handling_requirements == 'Yes') {
+                        $("#transport_special_handling_details_div").show();
+                    } else {
+                        $("#transport_special_handling_details_div").hide();
+                    }
+
                 } else if (service == '3') {
 
                     $("#warehouse_storage_space").hide();
@@ -653,46 +1003,6 @@
                     $("#warehouse_storage_space").hide();
                     $("#transportation_goods_to_venues").hide();
                     $("#on_venue_assistance").hide();
-                }
-
-                var any_dangerous = "{!! old('any_dangerous') !!}"
-                if (any_dangerous == 'Yes') {
-                    $("#dangerous_details_div").show();
-                } else {
-                    $("#dangerous_details_div").hide();
-                }
-
-                var dissolution_plan_place = "{!! old('dissolution_plan_place') !!}"
-                if (dissolution_plan_place == 'Yes') {
-                    $("#dissolution_plan_details_div").show();
-                } else {
-                    $("#dissolution_plan_details_div").hide();
-                }
-
-                var special_handling_requirements = "{!! old('special_handling_requirements') !!}"
-                if (special_handling_requirements == 'Yes') {
-                    $("#special_handling_details_div").show();
-                } else {
-                    $("#special_handling_details_div").hide();
-                }
-
-                var transport_to_deliver = "{!! old('transport_to_deliver') !!}"
-                if (transport_to_deliver == 'Yes') {
-                    $("#transport_to_deliver_details_div").show();
-                    $("#collection_details_div").hide();
-                } else if (transport_to_deliver == 'No') {
-                    $("#transport_to_deliver_details_div").hide();
-                    $("#collection_details_div").show();
-                } else {
-                    $("#transport_to_deliver_details_div").hide();
-                    $("#collection_details_div").hide();
-                }
-
-                var venues_distribution = "{!! old('venues_distribution') !!}"
-                if (venues_distribution == 'Yes') {
-                    $("#venue_details_div").show();
-                } else {
-                    $("#venue_details_div").hide();
                 }
             });
         </script>
@@ -708,6 +1018,14 @@
                     format: 'Y-MM-DD',
                 });
                 $('#venues_distribution_date').datetimepicker({
+                    format: 'Y-MM-DD',
+                });
+
+                $('#transport_collection_dttm').datetimepicker({
+                    format: 'Y-MM-DD',
+                });
+
+                $('#transport_delivery_dttm').datetimepicker({
                     format: 'Y-MM-DD',
                 });
             });
@@ -771,6 +1089,22 @@
                     $("#venue_details_div").show();
                 } else {
                     $("#venue_details_div").hide();
+                }
+            });
+
+            $('#transport_any_dangerous').on('change', function() {
+                if (this.value == 'Yes') {
+                    $("#transport_dangerous_details_div").show();
+                } else {
+                    $("#transport_dangerous_details_div").hide();
+                }
+            });
+
+            $('#transport_special_handling_requirements').on('change', function() {
+                if (this.value == 'Yes') {
+                    $("#transport_special_handling_details_div").show();
+                } else {
+                    $("#transport_special_handling_details_div").hide();
                 }
             });
         </script>

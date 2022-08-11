@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\OtpMail;
 use App\Mail\ResetPasswordEMail;
 use App\Models\PasswordReset;
+use App\Models\TransportationOfGoods;
 use App\Models\User;
 use App\Models\UserServiceRequest;
 use App\Models\WarehouseStorage;
@@ -231,7 +232,7 @@ class UserController extends Controller
 
     public function warehouseStorages(Request $request){
         $rules = array(
-            'description_of_materials' => 'required',
+            'description_of_material' => 'required',
             'storage_type_id' => 'required',
             'quantity_of_items' => 'required',
             'goods_preparation_type_id' => 'required',
@@ -306,6 +307,8 @@ class UserController extends Controller
             $warehouseStorage->storage_end_date = $request->get('storage_end_date');
             $warehouseStorage->any_dangerous = $request->get('any_dangerous');
             $warehouseStorage->dangerous_details = $request->get('dangerous_details');
+            $warehouseStorage->dissolution_plan_place = $request->get('dissolution_plan_place');
+            $warehouseStorage->dissolution_plan_details = $request->get('dissolution_plan_details');
             $warehouseStorage->special_handling_requirements = $request->get('special_handling_requirements');
             $warehouseStorage->special_handling_details = $request->get('special_handling_details');
             $warehouseStorage->transport_to_deliver = $request->get('transport_to_deliver');
@@ -318,6 +321,85 @@ class UserController extends Controller
             $warehouseStorage->venues_distribution_place = $request->get('venues_distribution_place');
             $warehouseStorage->venues_distribution_contact = $request->get('venues_distribution_contact');
             $warehouseStorage->save();
+
+            DB::commit();
+            return array('status'=>true);
+        }
+        catch(Exception $e){
+            Log::info("error:".json_encode($e->getMessage()));
+            DB::rollBack();
+            return array('status'=>false,'message'=> 'something went wrong!!');
+        }
+    }
+
+    public function transportationOfGoods(Request $request){
+        $rules = array(
+            'transport_description_of_materials' => 'required',
+            'transport_goods_preparation_type_id' => 'required',
+            'transport_no_of_packaged_goods' => 'required',
+            'transport_packaging_specifications' => 'required',
+            'transport_weight_of_goods' => 'required',
+            'transport_collection_dttm' => 'required|date',
+            'transport_collection_location' => 'required',
+            'transport_collection_contact_name' => 'required',
+            'transport_collection_contact_number' => 'required',
+            'transport_delivery_dttm' => 'required|date',
+            'transport_delivery_location' => 'required',
+            'transport_delivery_contact_name' => 'required',
+            'transport_delivery_contact_number' => 'required',
+            'transport_any_dangerous' => 'required',
+            'transport_special_handling_requirements' => 'required',
+        );
+
+        if($request->get('transport_any_dangerous') == 'Yes'){
+            $rules['transport_dangerous_details'] = 'required';
+        }
+        if($request->get('transport_special_handling_requirements') == 'Yes'){
+            $rules['transport_special_handling_details'] = 'required';
+        }
+
+        $validator = Validator::make(
+            $request->all(),
+            $rules
+        );
+        if ($validator->fails()) {
+            return array('status' => false, 'message' => $validator, 'error_code' => '100');
+        }
+        DB::beginTransaction();
+        try{
+            $uniqueId =  $this->getUniqueId();
+            $userServiceRequest = new UserServiceRequest();
+            $userServiceRequest->user_id = $request->attributes->get('user_id');
+            $userServiceRequest->unique_id = $uniqueId;
+            $userServiceRequest->service_id = $request->get('service');
+            $userServiceRequest->name = $request->get('name');
+            $userServiceRequest->email = $request->get('email');
+            $userServiceRequest->mobile = $request->get('mobile');
+            $userServiceRequest->project_functional_area = $request->get('project_functional_area');
+            $userServiceRequest->job_title = $request->get('job_title');
+            $userServiceRequest->save();
+
+            $transportationOfGoods = new TransportationOfGoods();
+            $transportationOfGoods->user_id = $request->attributes->get('user_id');
+            $transportationOfGoods->user_service_request_id = $userServiceRequest->id;
+            $transportationOfGoods->description_of_materials = $request->get('transport_description_of_materials');
+            $transportationOfGoods->goods_preparation_type_id = $request->get('transport_goods_preparation_type_id');
+            $transportationOfGoods->no_of_packaged_goods = $request->get('transport_no_of_packaged_goods');
+            $transportationOfGoods->packaging_specifications = $request->get('transport_packaging_specifications');
+            $transportationOfGoods->weight_of_goods = $request->get('transport_weight_of_goods');
+            $transportationOfGoods->collection_dttm = $request->get('transport_collection_dttm');
+            $transportationOfGoods->collection_location = $request->get('transport_collection_location');
+            $transportationOfGoods->collection_contact_name = $request->get('transport_collection_contact_name');
+            $transportationOfGoods->collection_contact_number = $request->get('transport_collection_contact_number');
+            $transportationOfGoods->delivery_dttm = $request->get('transport_delivery_dttm');
+            $transportationOfGoods->delivery_location = $request->get('transport_delivery_location');
+            $transportationOfGoods->delivery_contact_name = $request->get('transport_delivery_contact_name');
+            $transportationOfGoods->delivery_contact_number = $request->get('transport_delivery_contact_number');
+            $transportationOfGoods->any_dangerous = $request->get('transport_any_dangerous');
+            $transportationOfGoods->dangerous_details = $request->get('transport_dangerous_details');
+            $transportationOfGoods->special_handling_requirements = $request->get('transport_special_handling_requirements');
+            $transportationOfGoods->special_handling_details = $request->get('transport_special_handling_details');
+            $transportationOfGoods->save();
 
             DB::commit();
             return array('status'=>true);
