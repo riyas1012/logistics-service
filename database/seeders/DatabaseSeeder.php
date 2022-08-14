@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(StorageTypeSeed::class);
         $this->call(GoodsPrepareTypesSeeder::class);
+        $this->call(AccountActivationSeeder::class);
     }
 }

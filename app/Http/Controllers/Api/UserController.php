@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AccountActivateMail;
 use App\Mail\OtpMail;
 use App\Mail\ResetPasswordEMail;
 use App\Models\OnVenueAssistance;
@@ -39,13 +40,21 @@ class UserController extends Controller
         if ($validator->fails()) {
             return array('status' => false, 'message' => $validator, 'error_code' => '100');
         }
-
+        $accountActivationKey = $this->generateRandomKey(24);
         $user = new User();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->mobile = $request->get('mobile');
         $user->password = Hash::make($request->get('password'));
+        $user->activation_code = $accountActivationKey;
         $user->save();
+        $url = url('account-verification', [$accountActivationKey]);
+        $details = array(
+            'name' => $user->name,
+            'email' => $user->email,
+            'url' => $url,
+        );
+        Mail::to($user->email)->send(new AccountActivateMail($details));
         return array('status' => true);
     }
     public function login(Request $request)
@@ -66,19 +75,24 @@ class UserController extends Controller
         $user = User::where('email', $request->get('email'))->first();
         if ($user) {
             if (Hash::check($request->get('password'), $user->password)) {
-                $user->token = $this->generateRandomKey();
-                if (env('OTP_VERIFY')) {
-                    $otp = random_int(100000, 999999);
-                    $user->otp = $otp;
-                    $details = array(
-                        'name' => $user->name,
-                        'email' => $user->email,
-                        'otp_code' => $otp,
-                    );
-                    Mail::to($user->email)->send(new OtpMail($details));
+                if($user->is_activated == 1){
+                    $user->token = $this->generateRandomKey();
+                    if (env('OTP_VERIFY')) {
+                        $otp = random_int(100000, 999999);
+                        $user->otp = $otp;
+                        $details = array(
+                            'name' => $user->name,
+                            'email' => $user->email,
+                            'otp_code' => $otp,
+                        );
+                        Mail::to($user->email)->send(new OtpMail($details));
+                    }
+                    $user->save();
+                    return array('status' => true, 'user' => $user);
                 }
-                $user->save();
-                return array('status' => true, 'user' => $user);
+                else{
+                    return array('status' => false, 'message' => 'Account is not Activated.');
+                }
             } else {
                 return array('status' => false, 'message' => 'Incorrect Password');
             }
@@ -498,5 +512,22 @@ class UserController extends Controller
     public function getServiceRequest(Request $request)
     {
         return UserServiceRequest::where('user_id', $request->attributes->get('user_id'))->get();
+    }
+
+    public function accountVerification(Request $request,$activationKey){
+        $user = User::where('activation_code',$activationKey)->first();
+        if (!$user) {
+            return array('status' => false, 'message' => 'Invalid verification code');
+        }
+
+        if($user->is_activated == 1){
+            return array('status' => false, 'message' => 'Account is already Activated');
+        }
+
+        User::where('id',$user->id)->update(array(
+            'is_activated' => 1
+        ));
+
+        return array('status'=>true);
     }
 }
