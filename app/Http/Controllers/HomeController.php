@@ -25,7 +25,7 @@ class HomeController extends Controller
         if (!$registerStatus['status']) {
             return back()->withErrors($registerStatus['message'])->withInput();
         }
-        session()->flash('success', 'Successfully register.');
+        session()->flash('success', 'Activation link is sent to Your Email.');
         return redirect()->route('index');
     }
 
@@ -125,11 +125,20 @@ class HomeController extends Controller
     public function otpVerification(Request $request)
     {
         $apiUserController = new UserController;
-        $otpVarifiedStatus = $apiUserController->otpVerification($request);
-        if (!$otpVarifiedStatus['status']) {
-            return back()->withErrors($otpVarifiedStatus['message']);
+        $otpVerifiedStatus = $apiUserController->otpVerification($request);
+        if (!$otpVerifiedStatus['status']) {
+            return back()->withErrors($otpVerifiedStatus['message']);
         }
         session()->put('otp_verified', 1);
         return redirect()->route('request.form');
+    }
+
+    public function accountVerification(Request $request,$activationKey){
+        $apiUserController = new UserController;
+        $accountActivationSatus = $apiUserController->accountVerification($request,$activationKey);
+        if (!$accountActivationSatus['status']) {
+            return redirect()->route('index')->withErrors($accountActivationSatus['message']);
+        }
+        return redirect()->route('index')->with('success','Account is activated');
     }
 }

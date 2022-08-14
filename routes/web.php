@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/',[HomeController::class,'index'])->name('index');
 Route::get('create-account',[HomeController::class,'createAccount'])->name('create-account');
+Route::get('account-verification/{activation_key}',[HomeController::class,'accountVerification'])->name('account.verification');
 Route::post('register',[HomeController::class,'register'])->name('register');
 Route::post('login',[HomeController::class,'login'])->name('login');
 Route::get('forgot-password',[HomeController::class,'forgotPassword'])->name('forgot.password');
