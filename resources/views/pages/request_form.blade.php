@@ -334,10 +334,10 @@
                                             </option>
                                         </select> --}}
 
-                                        <input type="radio" @if (old('any_dangerous') == 'Yes') checked @endif id="any_dangerous" name="any_dangerous" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('any_dangerous') == 'No') checked @endif id="any_dangerous" name="any_dangerous" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('any_dangerous') == 'Yes') checked @endif id="any_dangerous_yes" name="any_dangerous" value="Yes">
+                                        <label for="any_dangerous_yes">Yes</label><br>
+                                        <input type="radio" @if (old('any_dangerous') == 'No') checked @endif id="any_dangerous_no" name="any_dangerous" value="No">
+                                        <label for="any_dangerous_no">No</label>
 
                                         @error('any_dangerous')
                                             <p class="text-danger">
@@ -377,10 +377,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('dissolution_plan_place') == 'Yes') checked @endif id="dissolution_plan_place" name="dissolution_plan_place" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('dissolution_plan_place') == 'No') checked @endif id="dissolution_plan_place" name="dissolution_plan_place" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('dissolution_plan_place') == 'Yes') checked @endif id="dissolution_plan_place_yes" name="dissolution_plan_place" value="Yes">
+                                        <label for="dissolution_plan_place_yes">Yes</label><br>
+                                        <input type="radio" @if (old('dissolution_plan_place') == 'No') checked @endif id="dissolution_plan_place_no" name="dissolution_plan_place" value="No">
+                                        <label for="dissolution_plan_place_no">No</label>
 
                                         @error('dissolution_plan_place')
                                             <p class="text-danger">
@@ -421,10 +421,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('special_handling_requirements') == 'Yes') checked @endif id="special_handling_requirements" name="special_handling_requirements" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('special_handling_requirements') == 'No') checked @endif id="special_handling_requirements" name="special_handling_requirements" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('special_handling_requirements') == 'Yes') checked @endif id="special_handling_requirements_yes" name="special_handling_requirements" value="Yes">
+                                        <label for="special_handling_requirements_yes">Yes</label><br>
+                                        <input type="radio" @if (old('special_handling_requirements') == 'No') checked @endif id="special_handling_requirements_no" name="special_handling_requirements" value="No">
+                                        <label for="special_handling_requirements_no">No</label>
                                         @error('special_handling_requirements')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -464,10 +464,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('transport_to_deliver') == 'Yes') checked @endif id="transport_to_deliver" name="transport_to_deliver" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('transport_to_deliver') == 'No') checked @endif id="transport_to_deliver" name="transport_to_deliver" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('transport_to_deliver') == 'Yes') checked @endif id="transport_to_deliver_yes" name="transport_to_deliver" value="Yes">
+                                        <label for="transport_to_deliver_yes">Yes</label><br>
+                                        <input type="radio" @if (old('transport_to_deliver') == 'No') checked @endif id="transport_to_deliver_no" name="transport_to_deliver" value="No">
+                                        <label for="transport_to_deliver_no">No</label>
                                         @error('transport_to_deliver')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -558,10 +558,10 @@
                                         </select> --}}
 
                                         <br>
-                                        <input type="radio" @if (old('venues_distribution') == 'Yes') checked @endif id="venues_distribution" name="venues_distribution" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('venues_distribution') == 'No') checked @endif id="venues_distribution" name="venues_distribution" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('venues_distribution') == 'Yes') checked @endif id="venues_distribution_yes" name="venues_distribution" value="Yes">
+                                        <label for="venues_distribution_yes">Yes</label><br>
+                                        <input type="radio" @if (old('venues_distribution') == 'No') checked @endif id="venues_distribution_no" name="venues_distribution" value="No">
+                                        <label for="venues_distribution_no">No</label>
                                         @error('venues_distribution')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -880,10 +880,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('transport_any_dangerous') == 'Yes') checked @endif id="transport_any_dangerous" name="transport_any_dangerous" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('transport_any_dangerous') == 'No') checked @endif id="transport_any_dangerous" name="transport_any_dangerous" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('transport_any_dangerous') == 'Yes') checked @endif id="transport_any_dangerous_yes" name="transport_any_dangerous" value="Yes">
+                                        <label for="transport_any_dangerous_yes">Yes</label><br>
+                                        <input type="radio" @if (old('transport_any_dangerous') == 'No') checked @endif id="transport_any_dangerous_no" name="transport_any_dangerous" value="No">
+                                        <label for="transport_any_dangerous_no">No</label>
                                         @error('transport_any_dangerous')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -924,10 +924,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'Yes') checked @endif id="transport_special_handling_requirements" name="transport_special_handling_requirements" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'No') checked @endif id="transport_special_handling_requirements" name="transport_special_handling_requirements" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'Yes') checked @endif id="transport_special_handling_requirements_yes" name="transport_special_handling_requirements" value="Yes">
+                                        <label for="transport_special_handling_requirements_yes">Yes</label><br>
+                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'No') checked @endif id="transport_special_handling_requirements_no" name="transport_special_handling_requirements" value="No">
+                                        <label for="transport_special_handling_requirements_no">No</label>
                                         @error('transport_special_handling_requirements')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -984,10 +984,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('crew_assistance') == 'Yes') checked @endif id="crew_assistance" name="crew_assistance" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('crew_assistance') == 'No') checked @endif id="crew_assistance" name="crew_assistance" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('crew_assistance') == 'Yes') checked @endif id="crew_assistance_yes" name="crew_assistance" value="Yes">
+                                        <label for="crew_assistance_yes">Yes</label><br>
+                                        <input type="radio" @if (old('crew_assistance') == 'No') checked @endif id="crew_assistance_no" name="crew_assistance" value="No">
+                                        <label for="crew_assistance_no">No</label>
                                         @error('crew_assistance')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1055,10 +1055,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('material_handling_equipment') == 'Yes') checked @endif id="material_handling_equipment" name="material_handling_equipment" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('material_handling_equipment') == 'No') checked @endif id="material_handling_equipment" name="material_handling_equipment" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('material_handling_equipment') == 'Yes') checked @endif id="material_handling_equipment_yes" name="material_handling_equipment" value="Yes">
+                                        <label for="material_handling_equipment_yes">Yes</label><br>
+                                        <input type="radio" @if (old('material_handling_equipment') == 'No') checked @endif id="material_handling_equipment_no" name="material_handling_equipment" value="No">
+                                        <label for="material_handling_equipment_no">No</label>
                                         @error('material_handling_equipment')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1141,10 +1141,10 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('logistics_assistance_venue') == 'Yes') checked @endif id="logistics_assistance_venue" name="logistics_assistance_venue" value="Yes">
-                                        <label for="yes">Yes</label><br>
-                                        <input type="radio" @if (old('logistics_assistance_venue') == 'No') checked @endif id="logistics_assistance_venue" name="logistics_assistance_venue" value="No">
-                                        <label for="no">No</label>
+                                        <input type="radio" @if (old('logistics_assistance_venue') == 'Yes') checked @endif id="logistics_assistance_venue_yes" name="logistics_assistance_venue" value="Yes">
+                                        <label for="logistics_assistance_venue_yes">Yes</label><br>
+                                        <input type="radio" @if (old('logistics_assistance_venue') == 'No') checked @endif id="logistics_assistance_venue_no" name="logistics_assistance_venue" value="No">
+                                        <label for="logistics_assistance_venue_no">No</label>
                                         @error('logistics_assistance_venue')
                                             <p class="text-danger">
                                                 {{ $message }}
