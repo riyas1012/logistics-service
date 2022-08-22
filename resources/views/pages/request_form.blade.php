@@ -325,13 +325,20 @@
                                         <label for="any_dangerous" class="control-label">
                                             Are there any Dangerous or Hazardous Goods? :
                                         </label>
-                                        <select class="form-control input-width" name="any_dangerous" id="any_dangerous">
+                                        <br>
+                                        {{-- <select class="form-control input-width" name="any_dangerous" id="any_dangerous">
                                             <option value="">-- Select --</option>
                                             <option @if (old('any_dangerous') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('any_dangerous') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+
+                                        <input type="radio" @if (old('any_dangerous') == 'Yes') checked @endif id="any_dangerous" name="any_dangerous" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('any_dangerous') == 'No') checked @endif id="any_dangerous" name="any_dangerous" value="No">
+                                        <label for="no">No</label>
+
                                         @error('any_dangerous')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -361,14 +368,20 @@
                                         <label for="dissolution_plan_place" class="control-label">
                                             Is there a dissolution plan in place? :
                                         </label>
-                                        <select class="form-control input-width" name="dissolution_plan_place"
+                                        {{-- <select class="form-control input-width" name="dissolution_plan_place"
                                             id="dissolution_plan_place">
                                             <option value="">-- Select --</option>
                                             <option @if (old('dissolution_plan_place') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('dissolution_plan_place') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('dissolution_plan_place') == 'Yes') checked @endif id="dissolution_plan_place" name="dissolution_plan_place" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('dissolution_plan_place') == 'No') checked @endif id="dissolution_plan_place" name="dissolution_plan_place" value="No">
+                                        <label for="no">No</label>
+
                                         @error('dissolution_plan_place')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -399,14 +412,19 @@
                                         <label for="special_handling_requirements" class="control-label">
                                             Any special handling requirements from the supplier? :
                                         </label>
-                                        <select class="form-control input-width" name="special_handling_requirements"
+                                        {{-- <select class="form-control input-width" name="special_handling_requirements"
                                             id="special_handling_requirements">
                                             <option value="">-- Select --</option>
                                             <option @if (old('special_handling_requirements') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('special_handling_requirements') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('special_handling_requirements') == 'Yes') checked @endif id="special_handling_requirements" name="special_handling_requirements" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('special_handling_requirements') == 'No') checked @endif id="special_handling_requirements" name="special_handling_requirements" value="No">
+                                        <label for="no">No</label>
                                         @error('special_handling_requirements')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -437,14 +455,19 @@
                                         <label for="transport_to_deliver" class="control-label">
                                             Will you provide the transport to deliver this to the Warehouse? :
                                         </label>
-                                        <select class="form-control input-width" name="transport_to_deliver"
+                                        {{-- <select class="form-control input-width" name="transport_to_deliver"
                                             id="transport_to_deliver">
                                             <option value="">-- Select --</option>
                                             <option @if (old('transport_to_deliver') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('transport_to_deliver') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('transport_to_deliver') == 'Yes') checked @endif id="transport_to_deliver" name="transport_to_deliver" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('transport_to_deliver') == 'No') checked @endif id="transport_to_deliver" name="transport_to_deliver" value="No">
+                                        <label for="no">No</label>
                                         @error('transport_to_deliver')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -525,14 +548,20 @@
                                             At the end of the requested storage period, do you require Logistics to provide
                                             the distribution to venues for the items? :
                                         </label>
-                                        <select class="form-control input-width" name="venues_distribution"
+                                        {{-- <select class="form-control input-width" name="venues_distribution"
                                             id="venues_distribution">
                                             <option value="">-- Select --</option>
                                             <option @if (old('venues_distribution') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('venues_distribution') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+
+                                        <br>
+                                        <input type="radio" @if (old('venues_distribution') == 'Yes') checked @endif id="venues_distribution" name="venues_distribution" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('venues_distribution') == 'No') checked @endif id="venues_distribution" name="venues_distribution" value="No">
+                                        <label for="no">No</label>
                                         @error('venues_distribution')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -842,14 +871,19 @@
                                         <label for="any_dangerous" class="control-label">
                                             Are there any Dangerous or Hazardous Goods? :
                                         </label>
-                                        <select class="form-control input-width" name="transport_any_dangerous"
+                                        {{-- <select class="form-control input-width" name="transport_any_dangerous"
                                             id="transport_any_dangerous">
                                             <option value="">-- Select --</option>
                                             <option @if (old('transport_any_dangerous') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('transport_any_dangerous') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('transport_any_dangerous') == 'Yes') checked @endif id="transport_any_dangerous" name="transport_any_dangerous" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('transport_any_dangerous') == 'No') checked @endif id="transport_any_dangerous" name="transport_any_dangerous" value="No">
+                                        <label for="no">No</label>
                                         @error('transport_any_dangerous')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -880,7 +914,7 @@
                                         <label for="special_handling_requirements" class="control-label">
                                             Any special handling requirements from the supplier? :
                                         </label>
-                                        <select class="form-control input-width"
+                                        {{-- <select class="form-control input-width"
                                             name="transport_special_handling_requirements"
                                             id="transport_special_handling_requirements">
                                             <option value="">-- Select --</option>
@@ -888,7 +922,12 @@
                                             </option>
                                             <option @if (old('transport_special_handling_requirements') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'Yes') checked @endif id="transport_special_handling_requirements" name="transport_special_handling_requirements" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'No') checked @endif id="transport_special_handling_requirements" name="transport_special_handling_requirements" value="No">
+                                        <label for="no">No</label>
                                         @error('transport_special_handling_requirements')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -936,14 +975,19 @@
                                         <label for="crew_assistance" class="control-label">
                                             Do you require CREW assistance? :
                                         </label>
-                                        <select class="form-control input-width" name="crew_assistance"
+                                        {{-- <select class="form-control input-width" name="crew_assistance"
                                             id="crew_assistance">
                                             <option value="">-- Select --</option>
                                             <option @if (old('crew_assistance') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('crew_assistance') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('crew_assistance') == 'Yes') checked @endif id="crew_assistance" name="crew_assistance" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('crew_assistance') == 'No') checked @endif id="crew_assistance" name="crew_assistance" value="No">
+                                        <label for="no">No</label>
                                         @error('crew_assistance')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1002,14 +1046,19 @@
                                         <label for="material_handling_equipment" class="control-label">
                                             Do you require MHE (Material Handling Equipment)? :
                                         </label>
-                                        <select class="form-control input-width" name="material_handling_equipment"
+                                        {{-- <select class="form-control input-width" name="material_handling_equipment"
                                             id="material_handling_equipment">
                                             <option value="">-- Select --</option>
                                             <option @if (old('material_handling_equipment') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('material_handling_equipment') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('material_handling_equipment') == 'Yes') checked @endif id="material_handling_equipment" name="material_handling_equipment" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('material_handling_equipment') == 'No') checked @endif id="material_handling_equipment" name="material_handling_equipment" value="No">
+                                        <label for="no">No</label>
                                         @error('material_handling_equipment')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1083,14 +1132,19 @@
                                         <label for="logistics_assistance_venue" class="control-label">
                                             Do you require other Logistics assistance on Venue :
                                         </label>
-                                        <select class="form-control input-width" name="logistics_assistance_venue"
+                                        {{-- <select class="form-control input-width" name="logistics_assistance_venue"
                                             id="logistics_assistance_venue">
                                             <option value="">-- Select --</option>
                                             <option @if (old('logistics_assistance_venue') == 'Yes') selected @endif value="Yes">Yes
                                             </option>
                                             <option @if (old('logistics_assistance_venue') == 'No') selected @endif value="No">No
                                             </option>
-                                        </select>
+                                        </select> --}}
+                                        <br>
+                                        <input type="radio" @if (old('logistics_assistance_venue') == 'Yes') checked @endif id="logistics_assistance_venue" name="logistics_assistance_venue" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                        <input type="radio" @if (old('logistics_assistance_venue') == 'No') checked @endif id="logistics_assistance_venue" name="logistics_assistance_venue" value="No">
+                                        <label for="no">No</label>
                                         @error('logistics_assistance_venue')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1414,28 +1468,32 @@
                         $("#on_venue_assistance").hide();
                     }
                 });
-            $('#any_dangerous').on('change', function() {
+            // $('#any_dangerous').on('change', function() {
+            $('input[type=radio][name=any_dangerous]').change(function() {
                 if (this.value == 'Yes') {
                     $("#dangerous_details_div").show();
                 } else {
                     $("#dangerous_details_div").hide();
                 }
             });
-            $('#dissolution_plan_place').on('change', function() {
+            // $('#dissolution_plan_place').on('change', function() {
+            $('input[type=radio][name=dissolution_plan_place]').change(function() {
                 if (this.value == 'Yes') {
                     $("#dissolution_plan_details_div").show();
                 } else {
                     $("#dissolution_plan_details_div").hide();
                 }
             });
-            $('#special_handling_requirements').on('change', function() {
+            // $('#special_handling_requirements').on('change', function() {
+            $('input[type=radio][name=special_handling_requirements]').change(function() {
                 if (this.value == 'Yes') {
                     $("#special_handling_details_div").show();
                 } else {
                     $("#special_handling_details_div").hide();
                 }
             });
-            $('#transport_to_deliver').on('change', function() {
+            // $('#transport_to_deliver').on('change', function() {
+            $('input[type=radio][name=transport_to_deliver]').change(function() {
                 if (this.value == 'Yes') {
                     $("#transport_to_deliver_details_div").show();
                     $("#collection_details_div").hide();
@@ -1448,7 +1506,8 @@
                 }
             });
 
-            $('#venues_distribution').on('change', function() {
+            // $('#venues_distribution').on('change', function() {
+            $('input[type=radio][name=venues_distribution]').change(function() {
                 if (this.value == 'Yes') {
                     $("#venue_details_div").show();
                 } else {
@@ -1456,7 +1515,8 @@
                 }
             });
 
-            $('#transport_any_dangerous').on('change', function() {
+            // $('#transport_any_dangerous').on('change', function() {
+            $('input[type=radio][name=transport_any_dangerous]').change(function() {
                 if (this.value == 'Yes') {
                     $("#transport_dangerous_details_div").show();
                 } else {
@@ -1464,7 +1524,8 @@
                 }
             });
 
-            $('#transport_special_handling_requirements').on('change', function() {
+            // $('#transport_special_handling_requirements').on('change', function() {
+            $('input[type=radio][name=transport_special_handling_requirements]').change(function() {
                 if (this.value == 'Yes') {
                     $("#transport_special_handling_details_div").show();
                 } else {
@@ -1472,7 +1533,8 @@
                 }
             });
 
-            $('#crew_assistance').on('change', function() {
+            // $('#crew_assistance').on('change', function() {
+            $('input[type=radio][name=crew_assistance]').change(function() {
                 if (this.value == 'Yes') {
                     $("#crew_assistance_div").show();
 
@@ -1480,7 +1542,8 @@
                     $("#crew_assistance_div").hide();
                 }
             });
-            $('#material_handling_equipment').on('change', function() {
+            // $('#material_handling_equipment').on('change', function() {
+            $('input[type=radio][name=material_handling_equipment]').change(function() {
                 if (this.value == 'Yes') {
                     $("#material_handling_equipment_div").show();
 
@@ -1488,7 +1551,8 @@
                     $("#material_handling_equipment_div").hide();
                 }
             });
-            $('#logistics_assistance_venue').on('change', function() {
+            // $('#logistics_assistance_venue').on('change', function() {
+            $('input[type=radio][name=logistics_assistance_venue]').change(function() {
                 if (this.value == 'Yes') {
                     $("#logistics_assistance_venue_div").show();
 
