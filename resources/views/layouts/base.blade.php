@@ -35,6 +35,8 @@
 	<script src="{{asset('assets/js/functions.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js" integrity="sha512-PDFb+YK2iaqtG4XelS5upP1/tFSmLUVJ/BVL8ToREQjsuXC5tyqEfAQV7Ca7s8b7RLHptOmTJak9jxlA2H9xQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('assets/js/validation/jquery.validate.min.js') }} "></script>
+    <script src="{{ asset('assets/js/validation/additional-methods.min.js') }} "></script>
     @stack('scripts')
 </body>
 </html>
