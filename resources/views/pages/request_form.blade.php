@@ -1,13 +1,21 @@
 @extends('layouts.base')
 
 @section('content')
+    @push('stylesheet')
+        <style>
+            .error {
+                color: red;
+            }
+        </style>
+    @endpush
     @include('layouts.header', ['header_name' => 'Logistics Service Request Form'])
     @if (session()->has('success'))
         <div class="alert alert-success" role="alert">
             {{ session()->get('success') }}
         </div>
     @endif
-    <form action="{{ route('request.form.create') }}" class="form-horizontal" method="POST">
+    <form action="{{ route('request.form.create') }}" class="form-horizontal" method="POST" name="applicationForm"
+        id="applicationForm">
         @csrf
         <div class="container" style="padding:30px 0px;">
             <div class="row">
@@ -135,6 +143,7 @@
                                             <input type="radio" name="service" value="3"
                                                 @if (old('service') == 3) checked @endif /> <span> On-Venue
                                                 Assistance* (Crew, MHE, Other Venue Support)</span> <br>
+                                            <label id="service-error" class="error" for="service"></label>
                                             @error('service')
                                                 <p class="text-danger">
                                                     {{ $message }}
@@ -334,11 +343,13 @@
                                             </option>
                                         </select> --}}
 
-                                        <input type="radio" @if (old('any_dangerous') == 'Yes') checked @endif id="any_dangerous_yes" name="any_dangerous" value="Yes">
+                                        <input type="radio" @if (old('any_dangerous') == 'Yes') checked @endif
+                                            id="any_dangerous_yes" name="any_dangerous" value="Yes">
                                         <label for="any_dangerous_yes">Yes</label><br>
-                                        <input type="radio" @if (old('any_dangerous') == 'No') checked @endif id="any_dangerous_no" name="any_dangerous" value="No">
-                                        <label for="any_dangerous_no">No</label>
-
+                                        <input type="radio" @if (old('any_dangerous') == 'No') checked @endif
+                                            id="any_dangerous_no" name="any_dangerous" value="No">
+                                        <label for="any_dangerous_no">No</label><br>
+                                        <label id="any_dangerous-error" class="error" for="any_dangerous"></label>
                                         @error('any_dangerous')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -377,11 +388,14 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('dissolution_plan_place') == 'Yes') checked @endif id="dissolution_plan_place_yes" name="dissolution_plan_place" value="Yes">
+                                        <input type="radio" @if (old('dissolution_plan_place') == 'Yes') checked @endif
+                                            id="dissolution_plan_place_yes" name="dissolution_plan_place" value="Yes">
                                         <label for="dissolution_plan_place_yes">Yes</label><br>
-                                        <input type="radio" @if (old('dissolution_plan_place') == 'No') checked @endif id="dissolution_plan_place_no" name="dissolution_plan_place" value="No">
-                                        <label for="dissolution_plan_place_no">No</label>
-
+                                        <input type="radio" @if (old('dissolution_plan_place') == 'No') checked @endif
+                                            id="dissolution_plan_place_no" name="dissolution_plan_place" value="No">
+                                        <label for="dissolution_plan_place_no">No</label><br>
+                                        <label id="dissolution_plan_place-error" class="error"
+                                            for="dissolution_plan_place"></label>
                                         @error('dissolution_plan_place')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -421,10 +435,16 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('special_handling_requirements') == 'Yes') checked @endif id="special_handling_requirements_yes" name="special_handling_requirements" value="Yes">
+                                        <input type="radio" @if (old('special_handling_requirements') == 'Yes') checked @endif
+                                            id="special_handling_requirements_yes" name="special_handling_requirements"
+                                            value="Yes">
                                         <label for="special_handling_requirements_yes">Yes</label><br>
-                                        <input type="radio" @if (old('special_handling_requirements') == 'No') checked @endif id="special_handling_requirements_no" name="special_handling_requirements" value="No">
-                                        <label for="special_handling_requirements_no">No</label>
+                                        <input type="radio" @if (old('special_handling_requirements') == 'No') checked @endif
+                                            id="special_handling_requirements_no" name="special_handling_requirements"
+                                            value="No">
+                                        <label for="special_handling_requirements_no">No</label><br>
+                                        <label id="special_handling_requirements-error" class="error"
+                                            for="special_handling_requirements"></label>
                                         @error('special_handling_requirements')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -464,10 +484,14 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('transport_to_deliver') == 'Yes') checked @endif id="transport_to_deliver_yes" name="transport_to_deliver" value="Yes">
+                                        <input type="radio" @if (old('transport_to_deliver') == 'Yes') checked @endif
+                                            id="transport_to_deliver_yes" name="transport_to_deliver" value="Yes">
                                         <label for="transport_to_deliver_yes">Yes</label><br>
-                                        <input type="radio" @if (old('transport_to_deliver') == 'No') checked @endif id="transport_to_deliver_no" name="transport_to_deliver" value="No">
-                                        <label for="transport_to_deliver_no">No</label>
+                                        <input type="radio" @if (old('transport_to_deliver') == 'No') checked @endif
+                                            id="transport_to_deliver_no" name="transport_to_deliver" value="No">
+                                        <label for="transport_to_deliver_no">No</label><br>
+                                        <label id="transport_to_deliver-error" class="error"
+                                            for="transport_to_deliver"></label>
                                         @error('transport_to_deliver')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -478,13 +502,21 @@
                                 <div class="col-md-6" id="transport_to_deliver_details_div" style="display: none;">
                                     <div class="form-group">
                                         <label for="transport_to_deliver_details" class="control-label">
-                                            If YES, Please specify :
+                                            Expected delivery date time :
                                         </label>
-                                        <input type="text" name="transport_to_deliver_details"
+                                        {{-- <input type="text" name="transport_to_deliver_details"
                                             id="transport_to_deliver_details" placeholder="If YES, Please specify"
                                             class="form-control input-width"
                                             value="{{ old('transport_to_deliver_details') }}" />
-                                        @error('transport_to_deliver_details')
+                                            @error('transport_to_deliver_details')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror --}}
+                                        <input type="text" name="expected_delivetr_dttm" id="expected_delivetr_dttm"
+                                            placeholder="YYYY/MM/DD HH:MM" class="form-control collection-input-width"
+                                            value="{{ old('expected_delivetr_dttm') }}" />
+                                        @error('expected_delivetr_dttm')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>
@@ -493,13 +525,13 @@
                                 </div>
                             </div>
                             <div class="row m-left-20" id="collection_details_div" style="display: none;">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="date_of_collection" class="control-label">
                                             Date of collection :
                                         </label>
                                         <input type="text" name="date_of_collection" id="date_of_collection"
-                                            placeholder="YYYY/MM/DD" class="form-control collection-input-width"
+                                            placeholder="YYYY/MM/DD HH:MM" class="form-control collection-input-width"
                                             value="{{ old('date_of_collection') }}" />
                                         @error('date_of_collection')
                                             <p class="text-danger">
@@ -508,7 +540,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="location_of_collection" class="control-label">
                                             Central Location of collection :
@@ -524,16 +556,32 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="collection_contact_person" class="control-label">
-                                            Contact person and number :
+                                            Contact person name :
                                         </label>
                                         <input type="text" name="collection_contact_person"
                                             id="collection_contact_person" placeholder="Central Location of collection"
                                             class="form-control collection-input-width"
                                             value="{{ old('collection_contact_person') }}" />
                                         @error('collection_contact_person')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="collection_contact_number" class="control-label">
+                                            Contact person number :
+                                        </label>
+                                        <input type="text" name="collection_contact_number"
+                                            id="collection_contact_number" placeholder="Central Location of collection"
+                                            class="form-control collection-input-width"
+                                            value="{{ old('collection_contact_number') }}" />
+                                        @error('collection_contact_number')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>
@@ -558,10 +606,14 @@
                                         </select> --}}
 
                                         <br>
-                                        <input type="radio" @if (old('venues_distribution') == 'Yes') checked @endif id="venues_distribution_yes" name="venues_distribution" value="Yes">
+                                        <input type="radio" @if (old('venues_distribution') == 'Yes') checked @endif
+                                            id="venues_distribution_yes" name="venues_distribution" value="Yes">
                                         <label for="venues_distribution_yes">Yes</label><br>
-                                        <input type="radio" @if (old('venues_distribution') == 'No') checked @endif id="venues_distribution_no" name="venues_distribution" value="No">
-                                        <label for="venues_distribution_no">No</label>
+                                        <input type="radio" @if (old('venues_distribution') == 'No') checked @endif
+                                            id="venues_distribution_no" name="venues_distribution" value="No">
+                                        <label for="venues_distribution_no">No</label><br>
+                                        <label id="venues_distribution-error" class="error"
+                                            for="venues_distribution"></label>
                                         @error('venues_distribution')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -571,13 +623,13 @@
                                 </div>
                             </div>
                             <div class="row m-left-20" id="venue_details_div" style="display: none;">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="venues_distribution_date" class="control-label">
                                             Date :
                                         </label>
                                         <input type="text" name="venues_distribution_date"
-                                            id="venues_distribution_date" placeholder="YYYY/MM/DD"
+                                            id="venues_distribution_date" placeholder="YYYY/MM/DD HH:MM"
                                             class="form-control collection-input-width"
                                             value="{{ old('venues_distribution_date') }}" />
                                         @error('venues_distribution_date')
@@ -587,7 +639,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="venues_distribution_place" class="control-label">
                                             Venue :
@@ -603,16 +655,34 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="venues_distribution_contact" class="control-label">
-                                            Contact person and number :
+                                            Contact person name :
                                         </label>
                                         <input type="text" name="venues_distribution_contact"
                                             id="venues_distribution_contact" placeholder="Central Location of collection"
                                             class="form-control collection-input-width"
                                             value="{{ old('venues_distribution_contact') }}" />
                                         @error('venues_distribution_contact')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="venues_distribution_contact_number" class="control-label">
+                                            Contact person number :
+                                        </label>
+                                        <input type="text" name="venues_distribution_contact_number"
+                                            id="venues_distribution_contact_number"
+                                            placeholder="Central Location of collection"
+                                            class="form-control collection-input-width"
+                                            value="{{ old('venues_distribution_contact_number') }}" />
+                                        @error('venues_distribution_contact_number')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>
@@ -737,7 +807,7 @@
                                             Collection Date and Time :
                                         </label>
                                         <input type="text" name="transport_collection_dttm"
-                                            id="transport_collection_dttm" placeholder="YYYY/MM/DD"
+                                            id="transport_collection_dttm" placeholder="YYYY/MM/DD HH:MM"
                                             class="form-control input-width"
                                             value="{{ old('transport_collection_dttm') }}" />
                                         @error('transport_collection_dttm')
@@ -805,7 +875,7 @@
                                             Delivery Date and Time :
                                         </label>
                                         <input type="text" name="transport_delivery_dttm" id="transport_delivery_dttm"
-                                            placeholder="YYYY/MM/DD" class="form-control input-width"
+                                            placeholder="YYYY/MM/DD HH:MM" class="form-control input-width"
                                             value="{{ old('transport_delivery_dttm') }}" />
                                         @error('transport_delivery_dttm')
                                             <p class="text-danger">
@@ -880,10 +950,15 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('transport_any_dangerous') == 'Yes') checked @endif id="transport_any_dangerous_yes" name="transport_any_dangerous" value="Yes">
+                                        <input type="radio" @if (old('transport_any_dangerous') == 'Yes') checked @endif
+                                            id="transport_any_dangerous_yes" name="transport_any_dangerous"
+                                            value="Yes">
                                         <label for="transport_any_dangerous_yes">Yes</label><br>
-                                        <input type="radio" @if (old('transport_any_dangerous') == 'No') checked @endif id="transport_any_dangerous_no" name="transport_any_dangerous" value="No">
-                                        <label for="transport_any_dangerous_no">No</label>
+                                        <input type="radio" @if (old('transport_any_dangerous') == 'No') checked @endif
+                                            id="transport_any_dangerous_no" name="transport_any_dangerous"
+                                            value="No">
+                                        <label for="transport_any_dangerous_no">No</label><br>
+                                        <label id="transport_any_dangerous-error" class="error" for="transport_any_dangerous"></label>
                                         @error('transport_any_dangerous')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -924,10 +999,15 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'Yes') checked @endif id="transport_special_handling_requirements_yes" name="transport_special_handling_requirements" value="Yes">
+                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'Yes') checked @endif
+                                            id="transport_special_handling_requirements_yes"
+                                            name="transport_special_handling_requirements" value="Yes">
                                         <label for="transport_special_handling_requirements_yes">Yes</label><br>
-                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'No') checked @endif id="transport_special_handling_requirements_no" name="transport_special_handling_requirements" value="No">
-                                        <label for="transport_special_handling_requirements_no">No</label>
+                                        <input type="radio" @if (old('transport_special_handling_requirements') == 'No') checked @endif
+                                            id="transport_special_handling_requirements_no"
+                                            name="transport_special_handling_requirements" value="No">
+                                        <label for="transport_special_handling_requirements_no">No</label><br>
+                                        <label id="transport_special_handling_requirements-error" class="error" for="transport_special_handling_requirements"></label>
                                         @error('transport_special_handling_requirements')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -984,10 +1064,14 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('crew_assistance') == 'Yes') checked @endif id="crew_assistance_yes" name="crew_assistance" value="Yes">
+                                        <input type="radio" @if (old('crew_assistance') == 'Yes') checked @endif
+                                            id="crew_assistance_yes" name="crew_assistance" value="Yes">
                                         <label for="crew_assistance_yes">Yes</label><br>
-                                        <input type="radio" @if (old('crew_assistance') == 'No') checked @endif id="crew_assistance_no" name="crew_assistance" value="No">
+                                        <input type="radio" @if (old('crew_assistance') == 'No') checked @endif
+                                            id="crew_assistance_no" name="crew_assistance" value="No">
                                         <label for="crew_assistance_no">No</label>
+                                        <br>
+                                        <label id="crew_assistance-error" class="error" for="crew_assistance"></label>
                                         @error('crew_assistance')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1055,10 +1139,16 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('material_handling_equipment') == 'Yes') checked @endif id="material_handling_equipment_yes" name="material_handling_equipment" value="Yes">
+                                        <input type="radio" @if (old('material_handling_equipment') == 'Yes') checked @endif
+                                            id="material_handling_equipment_yes" name="material_handling_equipment"
+                                            value="Yes">
                                         <label for="material_handling_equipment_yes">Yes</label><br>
-                                        <input type="radio" @if (old('material_handling_equipment') == 'No') checked @endif id="material_handling_equipment_no" name="material_handling_equipment" value="No">
+                                        <input type="radio" @if (old('material_handling_equipment') == 'No') checked @endif
+                                            id="material_handling_equipment_no" name="material_handling_equipment"
+                                            value="No">
                                         <label for="material_handling_equipment_no">No</label>
+                                        <br>
+                                        <label id="material_handling_equipment-error" class="error" for="material_handling_equipment"></label>
                                         @error('material_handling_equipment')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1141,10 +1231,16 @@
                                             </option>
                                         </select> --}}
                                         <br>
-                                        <input type="radio" @if (old('logistics_assistance_venue') == 'Yes') checked @endif id="logistics_assistance_venue_yes" name="logistics_assistance_venue" value="Yes">
+                                        <input type="radio" @if (old('logistics_assistance_venue') == 'Yes') checked @endif
+                                            id="logistics_assistance_venue_yes" name="logistics_assistance_venue"
+                                            value="Yes">
                                         <label for="logistics_assistance_venue_yes">Yes</label><br>
-                                        <input type="radio" @if (old('logistics_assistance_venue') == 'No') checked @endif id="logistics_assistance_venue_no" name="logistics_assistance_venue" value="No">
+                                        <input type="radio" @if (old('logistics_assistance_venue') == 'No') checked @endif
+                                            id="logistics_assistance_venue_no" name="logistics_assistance_venue"
+                                            value="No">
                                         <label for="logistics_assistance_venue_no">No</label>
+                                        <br>
+                                        <label id="logistics_assistance_venue-error" class="error" for="logistics_assistance_venue"></label>
                                         @error('logistics_assistance_venue')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -1414,20 +1510,24 @@
                 });
                 $('#storage_end_date').datetimepicker({
                     format: 'Y-MM-DD',
+
+                });
+                $('#expected_delivetr_dttm').datetimepicker({
+                    format: 'Y-MM-DD hh:mm',
                 });
                 $('#date_of_collection').datetimepicker({
-                    format: 'Y-MM-DD',
+                    format: 'Y-MM-DD hh:mm',
                 });
                 $('#venues_distribution_date').datetimepicker({
-                    format: 'Y-MM-DD',
+                    format: 'Y-MM-DD hh:mm',
                 });
 
                 $('#transport_collection_dttm').datetimepicker({
-                    format: 'Y-MM-DD',
+                    format: 'Y-MM-DD hh:mm',
                 });
 
                 $('#transport_delivery_dttm').datetimepicker({
-                    format: 'Y-MM-DD',
+                    format: 'Y-MM-DD hh:mm',
                 });
 
                 $('#start_date').datetimepicker({
@@ -1439,11 +1539,11 @@
                 });
 
                 $('#start_time').datetimepicker({
-                    format : 'hh:mm A'
+                    format: 'hh:mm A'
                 });
 
                 $('#end_time').datetimepicker({
-                    format : 'hh:mm A'
+                    format: 'hh:mm A'
                 });
 
             });
@@ -1559,6 +1659,738 @@
                 } else {
                     $("#logistics_assistance_venue_div").hide();
                 }
+            });
+        </script>
+        <script>
+            $().ready(function() {
+                $("#mobile").keypress(function(e) {
+                    var charCode = (e.which) ? e.which : e.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                });
+                $("#collection_contact_number").keypress(function(e) {
+                    var charCode = (e.which) ? e.which : e.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                });
+                $("#venues_distribution_contact_number").keypress(function(e) {
+                    var charCode = (e.which) ? e.which : e.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                });
+                $("#transport_collection_contact_number").keypress(function(e) {
+                    var charCode = (e.which) ? e.which : e.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                });
+                $("#transport_delivery_contact_number").keypress(function(e) {
+                    var charCode = (e.which) ? e.which : e.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                });
+                jQuery.validator.addMethod("emailExt", function(value, element, param) {
+                    return value.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/);
+                }, "Please enter valid email format");
+
+                jQuery.validator.addMethod("futuredate", function(value, element) {
+                    var now = new Date();
+                    var myDate = new Date(value);
+                    return this.optional(element) || myDate > now;
+
+                }, "Please select date and time from today");
+
+                jQuery.validator.addMethod("greaterThan",
+                    function(value, element, params) {
+
+                        if (!/Invalid|NaN/.test(new Date(value))) {
+                            return new Date(value) > new Date($(params).val());
+                        }
+
+                        return isNaN(value) && isNaN($(params).val()) ||
+                            (Number(value) > Number($(params).val()));
+                    }, 'Must be greater than start date.');
+
+                $.validator.addMethod('numericOnly', function(value) {
+                    return /^[0-9]+$/.test(value);
+                }, "Only number is allowed.");
+
+                $('#applicationForm').validate({
+                    rules: {
+                        name: {
+                            required: true
+                        },
+                        email: {
+                            required: true,
+                            emailExt: true
+                        },
+                        mobile: {
+                            required: true,
+                            numericOnly: true
+                        },
+                        project_functional_area: {
+                            required: true,
+                        },
+                        job_title: {
+                            required: true,
+                        },
+                        service: {
+                            required: true,
+                        },
+                        description_of_materials: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]').val() == 1;
+                                }
+                            }
+                        },
+                        storage_type_id: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            }
+                        },
+                        quantity_of_items: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            }
+                        },
+                        goods_preparation_type_id: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            }
+                        },
+                        no_of_packaged_goods: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            }
+                        },
+                        packaging_specifications: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            }
+                        },
+                        weight_of_goods: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            }
+                        },
+                        storage_start_date: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            },
+                            futuredate: true
+                        },
+                        storage_end_date: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            },
+                            futuredate: true,
+                            greaterThan: "#storage_start_date"
+                        },
+                        any_dangerous: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            },
+                        },
+                        dangerous_details: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="any_dangerous"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        dissolution_plan_place: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            },
+                        },
+                        dissolution_plan_details: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="dissolution_plan_place"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        special_handling_requirements: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            },
+                        },
+                        special_handling_details: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                            'input:radio[name="special_handling_requirements"]').val() ==
+                                        'Yes';
+                                }
+                            },
+                        },
+                        transport_to_deliver: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            },
+                        },
+                        expected_delivetr_dttm: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'Yes';
+                                }
+                            },
+                            futuredate: true,
+                        },
+                        date_of_collection: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'No';
+                                }
+                            },
+                            futuredate: true,
+                        },
+                        location_of_collection: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'No';
+                                }
+                            },
+                        },
+                        collection_contact_person: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'No';
+                                }
+                            },
+                        },
+                        collection_contact_number: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'No';
+                                }
+                            },
+                        },
+                        venues_distribution: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1;
+                                }
+                            },
+                        },
+                        venues_distribution_date: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'Yes';
+                                }
+                            },
+                            futuredate: true,
+                        },
+                        venues_distribution_place: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        venues_distribution_contact: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        venues_distribution_contact_number: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 1 && $(
+                                        'input:radio[name="transport_to_deliver"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        transport_description_of_materials: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            }
+                        },
+                        transport_goods_preparation_type_id: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            }
+                        },
+                        transport_no_of_packaged_goods: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            }
+                        },
+                        transport_packaging_specifications: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            }
+                        },
+                        transport_weight_of_goods: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            }
+                        },
+                        transport_collection_dttm: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                            futuredate: true,
+                        },
+                        transport_collection_location: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_collection_contact_name: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_collection_contact_number: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_delivery_dttm: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                            futuredate: true,
+                        },
+                        transport_delivery_location: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_delivery_contact_name: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_delivery_contact_number: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_any_dangerous: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_dangerous_details: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2 && $(
+                                        'input:radio[name="transport_any_dangerous"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        transport_special_handling_requirements: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2;
+                                }
+                            },
+                        },
+                        transport_special_handling_details: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 2 && $(
+                                        'input:radio[name="transport_special_handling_requirements"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        crew_assistance: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                        crew_quantity: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3 && $(
+                                        'input:radio[name="crew_assistance"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        supervisor_quantity: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3 && $(
+                                        'input:radio[name="crew_assistance"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        material_handling_equipment: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                        forklift_quantity: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3 && $(
+                                        'input:radio[name="material_handling_equipment"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        pallet_jack_quantity: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3 && $(
+                                        'input:radio[name="material_handling_equipment"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        trolley_quantity: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3 && $(
+                                        'input:radio[name="material_handling_equipment"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        logistics_assistance_venue: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                        logistics_assistance_venue_details: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3 && $(
+                                        'input:radio[name="logistics_assistance_venue"]').val() == 'Yes';
+                                }
+                            },
+                        },
+                        short_breif_activity: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                        location: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                        ova_contact_name: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                        start_date: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                            futuredate :  true
+                        },
+                        end_date: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                            futuredate :  true,
+                            greaterThan: "#start_date"
+                        },
+                        start_time: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                        end_time: {
+                            required: {
+                                depends: function(element) {
+                                    return $('input:radio[name="service"]:checked').val() == 3;
+                                }
+                            },
+                        },
+                    },
+                    messages: {
+                        name: {
+                            required: "Please enter name"
+                        },
+                        email: {
+                            required: "Please enter email",
+                        },
+                        mobile: {
+                            required: "Please enter mobile number",
+                        },
+                        project_functional_area: {
+                            required: 'Please enter project functional area'
+                        },
+                        job_title: {
+                            required: 'Please enter job title'
+                        },
+                        service: {
+                            required: "Please select any service"
+                        },
+                        description_of_materials: {
+                            required: "Please enter materials description"
+                        },
+                        storage_type_id: {
+                            required: "Please select storage types"
+                        },
+                        quantity_of_items: {
+                            required: "Please enter quantity"
+                        },
+                        goods_preparation_type_id: {
+                            required: "Please selectgoods preparation type"
+                        },
+                        no_of_packaged_goods: {
+                            required: "Please enter number of goods"
+                        },
+                        packaging_specifications: {
+                            required: "Please enter pakage specifications"
+                        },
+                        weight_of_goods: {
+                            required: "Please enter goods weight"
+                        },
+                        storage_start_date: {
+                            required: "Please enter storage start date"
+                        },
+                        storage_end_date: {
+                            required: "Please enter storage end date"
+                        },
+                        any_dangerous: {
+                            required: "Please choose any dangerous"
+                        },
+                        dangerous_details: {
+                            required: "Please enter dangerous details"
+                        },
+                        dissolution_plan_place: {
+                            required: "Please choose dissolution plan place"
+                        },
+                        dissolution_plan_details: {
+                            required: "Please enter dissolution plan details"
+                        },
+                        special_handling_requirements: {
+                            required: "Please choose special handling requirements"
+                        },
+                        special_handling_details: {
+                            required: "Please enter special handling details"
+                        },
+                        transport_to_deliver: {
+                            required: "Please choose transport to deliver"
+                        },
+                        expected_delivetr_dttm: {
+                            required: "Please enter expected delivery date & time"
+                        },
+                        date_of_collection: {
+                            required: "Please enter date of collection"
+                        },
+                        location_of_collection: {
+                            required: "Please enter collection location"
+                        },
+                        collection_contact_person: {
+                            required: "Please enter collection contact person"
+                        },
+                        collection_contact_number: {
+                            required: "Please enter collection contact number"
+                        },
+                        venues_distribution: {
+                            required: "Please choose venues distribution"
+                        },
+                        venues_distribution_date: {
+                            required: "Please enter venues distribution date & time"
+                        },
+                        venues_distribution_place: {
+                            required: "Please enter venues distribution place"
+                        },
+                        venues_distribution_contact: {
+                            required: "Please enter contact person name"
+                        },
+                        venues_distribution_contact_number: {
+                            required: "Please enter contact persion number"
+                        },
+                        transport_description_of_materials: {
+                            required: "Please enter description of materials"
+                        },
+                        transport_goods_preparation_type_id: {
+                            required: "Please select goods preparation type"
+                        },
+                        transport_no_of_packaged_goods: {
+                            required: "Please enter number of packaged goods"
+                        },
+                        transport_packaging_specifications: {
+                            required: "Please enter packaging specifications"
+                        },
+                        transport_weight_of_goods: {
+                            required: "Please enter weight of goods"
+                        },
+                        transport_collection_dttm: {
+                            required: "Please enter collection date and time"
+                        },
+                        transport_collection_location: {
+                            required: "Please enter collection location"
+                        },
+                        transport_collection_contact_name: {
+                            required: "Please enter collection contact name"
+                        },
+                        transport_collection_contact_number: {
+                            required: "Please enter collection contact number"
+                        },
+                        transport_delivery_dttm: {
+                            required: "Please enter delivery date and time"
+                        },
+                        transport_delivery_location: {
+                            required: "Please enter delivery location"
+                        },
+                        transport_delivery_contact_name: {
+                            required: "Please enter delivery contact name"
+                        },
+                        transport_delivery_contact_number: {
+                            required: "Please enter delivery contact number"
+                        },
+                        transport_any_dangerous: {
+                            required: "Please choose any dangerous"
+                        },
+                        transport_dangerous_details: {
+                            required: "Please enter dangerous details"
+                        },
+                        transport_special_handling_requirements: {
+                            required: "Please enter special handling requirements"
+                        },
+                        transport_special_handling_details: {
+                            required: "Please enter special handling details"
+                        },
+                        crew_assistance: {
+                            required: "Please choose crew assistance"
+                        },
+                        crew_quantity: {
+                            required: "Please enter crew qunatity"
+                        },
+                        supervisor_quantity: {
+                            required: "Please enter supervisor quantity"
+                        },
+                        material_handling_equipment: {
+                            required: "Please choose material handling equipment "
+                        },
+                        forklift_quantity: {
+                            required: "Please enter forklift quantity"
+                        },
+                        pallet_jack_quantity: {
+                            required: "Please enter pallet jack quantity"
+                        },
+                        trolley_quantity: {
+                            required: "Please enter trolley quantity"
+                        },
+                        logistics_assistance_venue: {
+                            required: "Please enter logistics assistance venue"
+                        },
+                        logistics_assistance_venue_details: {
+                            required: "Please enter  assitance venue details"
+                        },
+                        short_breif_activity: {
+                            required: "Please enter short breif activity"
+                        },
+                        location: {
+                            required: "Please enter location"
+                        },
+                        ova_contact_name: {
+                            required: "Please enter contact name"
+                        },
+                        start_date: {
+                            required: "Please enter start date"
+                        },
+                        end_date: {
+                            required: "Please enter end date"
+                        },
+                        start_time: {
+                            required: "Please enter start time"
+                        },
+                        end_time: {
+                            required: "Please enter end time"
+                        },
+
+                    },
+                    submitHandler: function(form) {
+                        form.submit();
+                    }
+
+                    // any other options and/or rules
+                });
             });
         </script>
     @endpush

@@ -417,7 +417,7 @@
                                 </div>
                             </div>
                             @if ($user_service_request->warehouse_storage->venues_distribution == 'Yes')
-                                <div class="row m-left-20" id="venue_details_div" style="display: none;">
+                                <div class="row m-left-20">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="venues_distribution_date" class="control-label">
@@ -836,7 +836,7 @@
                                     </div>
                                 </div>
                                 @if($user_service_request->on_venue_assistance->logistics_assistance_venue == 'Yes')
-                                    <div class="col-md-6" id="logistics_assistance_venue_div" style="display: none;">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="logistics_assistance_venue_details" class="control-label">
                                                 If yes, please specify

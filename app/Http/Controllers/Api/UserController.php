@@ -249,7 +249,7 @@ class UserController extends Controller
     public function warehouseStorages(Request $request)
     {
         $rules = array(
-            'description_of_material' => 'required',
+            'description_of_materials' => 'required',
             'storage_type_id' => 'required',
             'quantity_of_items' => 'required',
             'goods_preparation_type_id' => 'required',
@@ -275,17 +275,19 @@ class UserController extends Controller
             $rules['special_handling_details'] = 'required';
         }
         if ($request->get('transport_to_deliver') == 'Yes') {
-            $rules['transport_to_deliver_details'] = 'required';
+            $rules['expected_delivetr_dttm'] = 'required|required';
         }
         if ($request->get('transport_to_deliver') == 'No') {
-            $rules['date_of_collection'] = 'required|date';
+            $rules['date_of_collection'] = 'required';
             $rules['location_of_collection'] = 'required';
-            $rules['collection_contact_person'] = 'required|integer';
+            $rules['collection_contact_person'] = 'required';
+            $rules['collection_contact_number'] = 'required|integer';
         }
         if ($request->get('venues_distribution') == 'Yes') {
-            $rules['venues_distribution_date'] = 'required|date';
+            $rules['venues_distribution_date'] = 'required';
             $rules['venues_distribution_place'] = 'required';
-            $rules['venues_distribution_contact'] = 'required|integer';
+            $rules['venues_distribution_contact'] = 'required';
+            $rules['venues_distribution_contact_number'] = 'required|integer';
         }
 
         $validator = Validator::make(
@@ -329,17 +331,20 @@ class UserController extends Controller
             $warehouseStorage->special_handling_requirements = $request->get('special_handling_requirements');
             $warehouseStorage->special_handling_details = $request->get('special_handling_details');
             $warehouseStorage->transport_to_deliver = $request->get('transport_to_deliver');
-            $warehouseStorage->transport_to_deliver_details = $request->get('transport_to_deliver_details');
+            $warehouseStorage->expected_delivetr_dttm = $request->get('expected_delivetr_dttm');
             $warehouseStorage->date_of_collection = $request->get('date_of_collection');
             $warehouseStorage->location_of_collection = $request->get('location_of_collection');
             $warehouseStorage->collection_contact_person = $request->get('collection_contact_person');
+            $warehouseStorage->collection_contact_number = $request->get('collection_contact_number');
             $warehouseStorage->venues_distribution = $request->get('venues_distribution');
             $warehouseStorage->venues_distribution_date = $request->get('venues_distribution_date');
             $warehouseStorage->venues_distribution_place = $request->get('venues_distribution_place');
             $warehouseStorage->venues_distribution_contact = $request->get('venues_distribution_contact');
+            $warehouseStorage->venues_distribution_contact_number = $request->get('venues_distribution_contact_number');
             $warehouseStorage->save();
 
             DB::commit();
+            Log::info("done");
             return array('status' => true);
         } catch (Exception $e) {
             Log::info("error:" . json_encode($e->getMessage()));

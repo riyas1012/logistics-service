@@ -9,7 +9,7 @@
                     <div class=" main-content-area">
                         <div class="wrap-login-item " style="margin: 30px 0px !important;">
                             <div class="register-form form-item ">
-                                <form class="form-stl" action="{{route('register')}}" name="frm-login" method="POST">
+                                <form class="form-stl" action="{{route('register')}}" name="registerForm" method="POST">
                                     @csrf
                                     <fieldset class="wrap-title">
                                         <h3 class="form-title">Create an account</h3>
@@ -76,4 +76,106 @@
             </div>
         </div>
     </main>
+
+    @push('scripts')
+        <script>
+            $().ready(function() {
+
+                jQuery.validator.addMethod("emailExt", function(value, element, param) {
+                    return value.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/);
+                }, "please enter valid email format");
+
+                $.validator.addMethod('numericOnly', function(value) {
+                    return /^[0-9]+$/.test(value);
+                }, "Please only enter numeric values (0-9)");
+
+                $.validator.addMethod("strong_password", function(value, element) {
+                    let password = value;
+                    if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%&])(.{8,20}$)/.test(password))) {
+                        return false;
+                    }
+                    return true;
+                }, function(value, element) {
+                    let password = $(element).val();
+                    if (!(/^(.{8,20}$)/.test(password))) {
+                        return "Password must be between 8 to 20 characters long.";
+                    } else if (!(/^(?=.*[A-Z])/.test(password))) {
+                        return "Password must contain at least one uppercase.";
+                    } else if (!(/^(?=.*[a-z])/.test(password))) {
+                        return "Password must contain at least one lowercase.";
+                    } else if (!(/^(?=.*[0-9])/.test(password))) {
+                        return "Password must contain at least one digit.";
+                    } else if (!(/^(?=.*[@#$%&])/.test(password))) {
+                        return "{Password must contain special characters from @#$%&";
+                    }
+                    return false;
+                });
+
+                $('#registerForm').validate({
+                    rules: {
+                        // first_name: {
+                        //     required: true
+                        // },
+                        // last_name: {
+                        //     required: true
+                        // },
+                        name: {
+                            required: true
+                        },
+                        email: {
+                            required: true,
+                            emailExt: true
+                        },
+                        phone_number: {
+                            required: true,
+                            numericOnly: true
+                        },
+                        password: {
+                            required: true,
+                            minlength: 8,
+                            strong_password: true
+
+                        },
+                        password_confirmation: {
+                            required: true,
+                            minlength: 8,
+                            equalTo: "#password"
+                        },
+                    },
+                    messages: {
+                        // first_name: {
+                        //     required: "{{ __('jq_validation.first_name') }}",
+                        // },
+                        // last_name: {
+                        //     required: "{{ __('jq_validation.last_name') }}",
+                        // },
+                        name: {
+                            required: "Please enter name",
+                        },
+                        email: {
+                            required: "Please enter email",
+                        },
+                        phone_number: {
+                            required: "Please enter phone number",
+                        },
+                        password: {
+                            required: "Please enter password",
+                            minlength: "Please enter min 8 character",
+                        },
+                        password_confirmation: {
+                            required: "Please enter password confirmation",
+                            minlength: "Please enter min 8 character",
+                            equalTo: "Password does not match",
+                        },
+
+                    },
+                    submitHandler: function(form) {
+                        form.submit();
+                    }
+
+                    // any other options and/or rules
+                });
+            });
+        </script>
+    @endpush
 @endsection
