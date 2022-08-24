@@ -1,6 +1,13 @@
 @extends('layouts.base')
 
 @section('content')
+    @push('stylesheet')
+        <style>
+            .error {
+                color: red !important;
+            }
+        </style>
+    @endpush
     @include('layouts.header', ['header_name' => 'Logistics Service'])
     <main id="main" class="main-site left-sidebar">
         <div class="container">
@@ -25,7 +32,7 @@
                                                 {{ session()->get('success') }}
                                             </div>
                                         @endif
-                                        <form name="resetPasswordForm" method="POST"
+                                        <form name="resetPasswordForm" id="resetPasswordForm" method="POST"
                                             action="{{ route('reset.password.update', ['reset_token' => $token]) }}">
                                             @csrf
                                             <fieldset class="wrap-title">
